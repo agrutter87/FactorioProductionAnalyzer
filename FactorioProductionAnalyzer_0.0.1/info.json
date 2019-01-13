@@ -1,0 +1,10 @@
+{
+  "name": "FactorioProductionAnalyzer",
+  "version": "0.0.1",
+  "title": "Factorio Production Analyzer",
+  "author": "grutter",
+  "description": "continuously save data to JSON file which is read by a Qt application",
+  "homepage": "",
+  "dependencies": ["base >= 0.16.36"],
+  "factorio_version": "0.16"
+}
