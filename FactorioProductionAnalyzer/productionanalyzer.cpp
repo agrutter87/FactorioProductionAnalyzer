@@ -2,7 +2,6 @@
 
 #include <QFile>
 #include <QJsonDocument>
-#include <QTextStream>
 
 ProductionAnalyzer::ProductionAnalyzer()
 {
@@ -19,11 +18,17 @@ void ProductionAnalyzer::setProductionData(ProductionData &productionData)
     mProductionData = productionData;
 }
 
-bool ProductionAnalyzer::fileRead(SaveFormat saveFormat)
+void ProductionAnalyzer::setFile(SaveFormat saveFormat, QString &fileName)
 {
-    QFile loadFile(saveFormat == Json
-                             ? QStringLiteral("production_data.json")
-                             : QStringLiteral("production_data.dat"));
+    mFileFormat = saveFormat;
+    mFileName = fileName;
+}
+
+bool ProductionAnalyzer::fileRead(void)
+{
+    qDebug("ProductionAnalyzer::fileRead");
+
+    QFile loadFile(mFileName);
 
     if(!loadFile.open(QIODevice::ReadOnly))
     {
@@ -33,25 +38,20 @@ bool ProductionAnalyzer::fileRead(SaveFormat saveFormat)
 
     QByteArray saveData = loadFile.readAll();
 
-    QJsonDocument loadDoc(saveFormat == Json
+    QJsonDocument loadDoc(mFileFormat == Json
                           ? QJsonDocument::fromJson(saveData)
                           : QJsonDocument::fromBinaryData(saveData));
 
     jsonRead(loadDoc.object());
 
-    QTextStream(stdout) << "Loaded save for production data using "
-                        << (saveFormat != Json ? "binary " : "") << "JSON...\n";
-
     return true;
 }
 
-bool ProductionAnalyzer::fileWrite(SaveFormat saveFormat) const
+bool ProductionAnalyzer::fileWrite(SaveFormat saveFormat, QString &fileName) const
 {
-    QFile saveFile(saveFormat == Json
-                             ? QStringLiteral("production_data.json")
-                             : QStringLiteral("production_data.dat"));
+    QFile saveFile(fileName);
 
-    if(!saveFile.open(QIODevice::ReadOnly))
+    if(!saveFile.open(QIODevice::ReadWrite))
     {
         qWarning("Couldn't open save file.");
         return false;

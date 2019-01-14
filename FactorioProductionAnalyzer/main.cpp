@@ -9,11 +9,5 @@ int main(int argc, char *argv[])
     MainWindow w;
     w.show();
 
-    ProductionAnalyzer productionAnalyzer;
-    productionAnalyzer.fileRead(ProductionAnalyzer::Json);
-
-    ProductionData productionData;
-    productionData = productionAnalyzer.getProductionData();
-
     return a.exec();
 }

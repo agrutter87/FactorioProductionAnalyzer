@@ -16,14 +16,18 @@ public:
     ProductionData getProductionData() const;
     void setProductionData(ProductionData &productionData);
 
-    bool fileRead(SaveFormat saveFormat);
-    bool fileWrite(SaveFormat saveFormat) const;
+    void setFile(SaveFormat saveFormat, QString &fileName);
+
+    bool fileRead(void);
+    bool fileWrite(SaveFormat saveFormat, QString &fileName) const;
 
     void jsonRead(const QJsonObject &json);
     void jsonWrite(QJsonObject &json) const;
 
 private:
     ProductionData mProductionData;
+    QString mFileFormat;
+    QString mFileName;
 };
 
 #endif // PRODUCTIONANALYZER_H

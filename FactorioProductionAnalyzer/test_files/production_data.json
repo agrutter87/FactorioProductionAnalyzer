@@ -1,0 +1,785 @@
+{
+  "productiondata" : {
+    "timestamp" : 14557620,
+    "inputs" : [
+      {
+        "name" : "assembling-machine-1",
+        "value" : 778
+      },
+      {
+        "name" : "firearm-magazine",
+        "value" : 12744
+      },
+      {
+        "name" : "piercing-rounds-magazine",
+        "value" : 1332
+      },
+      {
+        "name" : "submachine-gun",
+        "value" : 2
+      },
+      {
+        "name" : "copper-cable",
+        "value" : 2654660
+      },
+      {
+        "name" : "solar-panel-equipment",
+        "value" : 39
+      },
+      {
+        "name" : "fusion-reactor-equipment",
+        "value" : 1
+      },
+      {
+        "name" : "small-electric-pole",
+        "value" : 410
+      },
+      {
+        "name" : "medium-electric-pole",
+        "value" : 888
+      },
+      {
+        "name" : "big-electric-pole",
+        "value" : 200
+      },
+      {
+        "name" : "substation",
+        "value" : 72
+      },
+      {
+        "name" : "grenade",
+        "value" : 1336
+      },
+      {
+        "name" : "wooden-chest",
+        "value" : 61
+      },
+      {
+        "name" : "electric-mining-drill",
+        "value" : 21188
+      },
+      {
+        "name" : "iron-chest",
+        "value" : 1
+      },
+      {
+        "name" : "steel-chest",
+        "value" : 968
+      },
+      {
+        "name" : "light-armor",
+        "value" : 1
+      },
+      {
+        "name" : "small-lamp",
+        "value" : 203
+      },
+      {
+        "name" : "iron-axe",
+        "value" : 10
+      },
+      {
+        "name" : "steel-axe",
+        "value" : 15
+      },
+      {
+        "name" : "pipe",
+        "value" : 60250
+      },
+      {
+        "name" : "pipe-to-ground",
+        "value" : 302
+      },
+      {
+        "name" : "logistic-robot",
+        "value" : 600
+      },
+      {
+        "name" : "construction-robot",
+        "value" : 308
+      },
+      {
+        "name" : "science-pack-1",
+        "value" : 31237
+      },
+      {
+        "name" : "speed-module",
+        "value" : 3389
+      },
+      {
+        "name" : "speed-module-2",
+        "value" : 121
+      },
+      {
+        "name" : "speed-module-3",
+        "value" : 23
+      },
+      {
+        "name" : "stone-brick",
+        "value" : 148438
+      },
+      {
+        "name" : "stone-furnace",
+        "value" : 42
+      },
+      {
+        "name" : "stone-wall",
+        "value" : 3489
+      },
+      {
+        "name" : "rail",
+        "value" : 2380
+      },
+      {
+        "name" : "train-stop",
+        "value" : 14
+      },
+      {
+        "name" : "rail-signal",
+        "value" : 10
+      },
+      {
+        "name" : "rail-chain-signal",
+        "value" : 9
+      },
+      {
+        "name" : "locomotive",
+        "value" : 8
+      },
+      {
+        "name" : "cargo-wagon",
+        "value" : 14
+      },
+      {
+        "name" : "fluid-wagon",
+        "value" : 1
+      },
+      {
+        "name" : "transport-belt",
+        "value" : 34080
+      },
+      {
+        "name" : "fast-transport-belt",
+        "value" : 409
+      },
+      {
+        "name" : "express-transport-belt",
+        "value" : 103
+      },
+      {
+        "name" : "gate",
+        "value" : 15
+      },
+      {
+        "name" : "wood",
+        "value" : 660
+      },
+      {
+        "name" : "assembling-machine-2",
+        "value" : 599
+      },
+      {
+        "name" : "coal",
+        "value" : 512376
+      },
+      {
+        "name" : "storage-tank",
+        "value" : 55
+      },
+      {
+        "name" : "offshore-pump",
+        "value" : 16
+      },
+      {
+        "name" : "pumpjack",
+        "value" : 16
+      },
+      {
+        "name" : "heavy-armor",
+        "value" : 1
+      },
+      {
+        "name" : "inserter",
+        "value" : 31564
+      },
+      {
+        "name" : "iron-plate",
+        "value" : 2364222
+      },
+      {
+        "name" : "iron-stick",
+        "value" : 2068
+      },
+      {
+        "name" : "car",
+        "value" : 1
+      },
+      {
+        "name" : "tank",
+        "value" : 1
+      },
+      {
+        "name" : "pump",
+        "value" : 30
+      },
+      {
+        "name" : "repair-pack",
+        "value" : 99
+      },
+      {
+        "name" : "science-pack-2",
+        "value" : 30682
+      },
+      {
+        "name" : "shotgun",
+        "value" : 1
+      },
+      {
+        "name" : "shotgun-shell",
+        "value" : 584
+      },
+      {
+        "name" : "boiler",
+        "value" : 20
+      },
+      {
+        "name" : "steam-engine",
+        "value" : 20
+      },
+      {
+        "name" : "steel-furnace",
+        "value" : 27
+      },
+      {
+        "name" : "logistic-chest-active-provider",
+        "value" : 5
+      },
+      {
+        "name" : "logistic-chest-passive-provider",
+        "value" : 509
+      },
+      {
+        "name" : "logistic-chest-storage",
+        "value" : 52
+      },
+      {
+        "name" : "logistic-chest-buffer",
+        "value" : 2
+      },
+      {
+        "name" : "logistic-chest-requester",
+        "value" : 296
+      },
+      {
+        "name" : "gun-turret",
+        "value" : 1370
+      },
+      {
+        "name" : "underground-belt",
+        "value" : 148
+      },
+      {
+        "name" : "fast-underground-belt",
+        "value" : 4
+      },
+      {
+        "name" : "red-wire",
+        "value" : 211
+      },
+      {
+        "name" : "green-wire",
+        "value" : 6
+      },
+      {
+        "name" : "assembling-machine-3",
+        "value" : 184
+      },
+      {
+        "name" : "battery-equipment",
+        "value" : 10
+      },
+      {
+        "name" : "battery-mk2-equipment",
+        "value" : 1
+      },
+      {
+        "name" : "copper-plate",
+        "value" : 1598950
+      },
+      {
+        "name" : "effectivity-module",
+        "value" : 842
+      },
+      {
+        "name" : "effectivity-module-2",
+        "value" : 205
+      },
+      {
+        "name" : "effectivity-module-3",
+        "value" : 40
+      },
+      {
+        "name" : "electric-furnace",
+        "value" : 6216
+      },
+      {
+        "name" : "iron-gear-wheel",
+        "value" : 244192
+      },
+      {
+        "name" : "landfill",
+        "value" : 1
+      },
+      {
+        "name" : "long-handed-inserter",
+        "value" : 53
+      },
+      {
+        "name" : "modular-armor",
+        "value" : 1
+      },
+      {
+        "name" : "productivity-module",
+        "value" : 3200
+      },
+      {
+        "name" : "productivity-module-2",
+        "value" : 797
+      },
+      {
+        "name" : "productivity-module-3",
+        "value" : 159
+      },
+      {
+        "name" : "science-pack-3",
+        "value" : 22647
+      },
+      {
+        "name" : "roboport",
+        "value" : 21
+      },
+      {
+        "name" : "solid-fuel",
+        "value" : 4666
+      },
+      {
+        "name" : "splitter",
+        "value" : 42
+      },
+      {
+        "name" : "fast-splitter",
+        "value" : 2
+      },
+      {
+        "name" : "empty-barrel",
+        "value" : 704
+      },
+      {
+        "name" : "fast-inserter",
+        "value" : 648
+      },
+      {
+        "name" : "military-science-pack",
+        "value" : 2764
+      },
+      {
+        "name" : "power-armor",
+        "value" : 1
+      },
+      {
+        "name" : "radar",
+        "value" : 12
+      },
+      {
+        "name" : "oil-refinery",
+        "value" : 8
+      },
+      {
+        "name" : "solar-panel",
+        "value" : 2985
+      },
+      {
+        "name" : "steel-plate",
+        "value" : 127386
+      },
+      {
+        "name" : "stone",
+        "value" : 336459
+      },
+      {
+        "name" : "accumulator",
+        "value" : 2286
+      },
+      {
+        "name" : "chemical-plant",
+        "value" : 26
+      },
+      {
+        "name" : "electronic-circuit",
+        "value" : 703411
+      },
+      {
+        "name" : "exoskeleton-equipment",
+        "value" : 5
+      },
+      {
+        "name" : "filter-inserter",
+        "value" : 79
+      },
+      {
+        "name" : "iron-ore",
+        "value" : 2367788
+      },
+      {
+        "name" : "power-armor-mk2",
+        "value" : 1
+      },
+      {
+        "name" : "production-science-pack",
+        "value" : 13456
+      },
+      {
+        "name" : "personal-roboport-equipment",
+        "value" : 5
+      },
+      {
+        "name" : "personal-roboport-mk2-equipment",
+        "value" : 1
+      },
+      {
+        "name" : "advanced-circuit",
+        "value" : 125465
+      },
+      {
+        "name" : "copper-ore",
+        "value" : 1603403
+      },
+      {
+        "name" : "high-tech-science-pack",
+        "value" : 4784
+      },
+      {
+        "name" : "night-vision-equipment",
+        "value" : 1
+      },
+      {
+        "name" : "plastic-bar",
+        "value" : 238040
+      },
+      {
+        "name" : "stack-inserter",
+        "value" : 304
+      },
+      {
+        "name" : "lab",
+        "value" : 12
+      },
+      {
+        "name" : "processing-unit",
+        "value" : 14075
+      },
+      {
+        "name" : "sulfur",
+        "value" : 46668
+      },
+      {
+        "name" : "battery",
+        "value" : 16196
+      },
+      {
+        "name" : "engine-unit",
+        "value" : 28529
+      },
+      {
+        "name" : "electric-engine-unit",
+        "value" : 7366
+      },
+      {
+        "name" : "flying-robot-frame",
+        "value" : 1146
+      },
+      {
+        "name" : "water",
+        "value" : 33915960.551602
+      },
+      {
+        "name" : "crude-oil",
+        "value" : 3251351.0895202
+      },
+      {
+        "name" : "steam",
+        "value" : 28734992.130515
+      },
+      {
+        "name" : "heavy-oil",
+        "value" : 751185
+      },
+      {
+        "name" : "light-oil",
+        "value" : 1769130
+      },
+      {
+        "name" : "petroleum-gas",
+        "value" : 3082035
+      },
+      {
+        "name" : "sulfuric-acid",
+        "value" : 464200
+      },
+      {
+        "name" : "lubricant",
+        "value" : 148600
+      }
+    ],
+    "outputs" : [
+      {
+        "name" : "assembling-machine-1",
+        "value" : 582
+      },
+      {
+        "name" : "firearm-magazine",
+        "value" : 7013
+      },
+      {
+        "name" : "piercing-rounds-magazine",
+        "value" : 1264
+      },
+      {
+        "name" : "copper-cable",
+        "value" : 2644060
+      },
+      {
+        "name" : "grenade",
+        "value" : 1264
+      },
+      {
+        "name" : "wooden-chest",
+        "value" : 26
+      },
+      {
+        "name" : "electric-mining-drill",
+        "value" : 20785
+      },
+      {
+        "name" : "steel-chest",
+        "value" : 716
+      },
+      {
+        "name" : "iron-axe",
+        "value" : 10
+      },
+      {
+        "name" : "steel-axe",
+        "value" : 10
+      },
+      {
+        "name" : "pipe",
+        "value" : 57058
+      },
+      {
+        "name" : "raw-wood",
+        "value" : 603
+      },
+      {
+        "name" : "science-pack-1",
+        "value" : 31095
+      },
+      {
+        "name" : "speed-module",
+        "value" : 3265
+      },
+      {
+        "name" : "speed-module-2",
+        "value" : 115
+      },
+      {
+        "name" : "stone-brick",
+        "value" : 78765
+      },
+      {
+        "name" : "transport-belt",
+        "value" : 30031
+      },
+      {
+        "name" : "fast-transport-belt",
+        "value" : 103
+      },
+      {
+        "name" : "wood",
+        "value" : 2
+      },
+      {
+        "name" : "assembling-machine-2",
+        "value" : 322
+      },
+      {
+        "name" : "coal",
+        "value" : 491395
+      },
+      {
+        "name" : "inserter",
+        "value" : 30264
+      },
+      {
+        "name" : "iron-plate",
+        "value" : 2265704
+      },
+      {
+        "name" : "iron-stick",
+        "value" : 518
+      },
+      {
+        "name" : "repair-pack",
+        "value" : 19
+      },
+      {
+        "name" : "science-pack-2",
+        "value" : 30534
+      },
+      {
+        "name" : "shotgun-shell",
+        "value" : 36
+      },
+      {
+        "name" : "gun-turret",
+        "value" : 1264
+      },
+      {
+        "name" : "red-wire",
+        "value" : 209
+      },
+      {
+        "name" : "green-wire",
+        "value" : 5
+      },
+      {
+        "name" : "copper-plate",
+        "value" : 1408382
+      },
+      {
+        "name" : "effectivity-module",
+        "value" : 820
+      },
+      {
+        "name" : "effectivity-module-2",
+        "value" : 200
+      },
+      {
+        "name" : "electric-furnace",
+        "value" : 5865
+      },
+      {
+        "name" : "iron-gear-wheel",
+        "value" : 237045
+      },
+      {
+        "name" : "productivity-module",
+        "value" : 3188
+      },
+      {
+        "name" : "productivity-module-2",
+        "value" : 795
+      },
+      {
+        "name" : "science-pack-3",
+        "value" : 22506
+      },
+      {
+        "name" : "solid-fuel",
+        "value" : 963
+      },
+      {
+        "name" : "fast-inserter",
+        "value" : 346
+      },
+      {
+        "name" : "military-science-pack",
+        "value" : 2611
+      },
+      {
+        "name" : "steel-plate",
+        "value" : 116895
+      },
+      {
+        "name" : "stone",
+        "value" : 297410
+      },
+      {
+        "name" : "electronic-circuit",
+        "value" : 695302
+      },
+      {
+        "name" : "iron-ore",
+        "value" : 2364327
+      },
+      {
+        "name" : "production-science-pack",
+        "value" : 13390
+      },
+      {
+        "name" : "advanced-circuit",
+        "value" : 121650
+      },
+      {
+        "name" : "copper-ore",
+        "value" : 1599065
+      },
+      {
+        "name" : "high-tech-science-pack",
+        "value" : 4770
+      },
+      {
+        "name" : "plastic-bar",
+        "value" : 237472
+      },
+      {
+        "name" : "processing-unit",
+        "value" : 13136
+      },
+      {
+        "name" : "sulfur",
+        "value" : 46425
+      },
+      {
+        "name" : "battery",
+        "value" : 15869
+      },
+      {
+        "name" : "engine-unit",
+        "value" : 28151
+      },
+      {
+        "name" : "electric-engine-unit",
+        "value" : 7011
+      },
+      {
+        "name" : "flying-robot-frame",
+        "value" : 4
+      },
+      {
+        
+      },
+      {
+        
+      },
+      {
+        
+      },
+      {
+        
+      },
+      {
+        
+      },
+      {
+        
+      },
+      {
+        
+      },
+      {
+        
+      }
+    ]
+  }
+}

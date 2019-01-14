@@ -7,6 +7,11 @@ ProductionData::ProductionData()
 
 }
 
+int ProductionData::getTimestamp() const
+{
+    return mTimestamp;
+}
+
 QVector<Product> ProductionData::getInputs() const
 {
     return mInputs;
@@ -29,6 +34,13 @@ void ProductionData::setOutputs(const QVector<Product> &products)
 
 void ProductionData::jsonRead(const QJsonObject &json)
 {
+    /* Find "timestamp" section in JSON object and ensure it is a number */
+    if (json.contains("timestamp") && json["timestamp"].isDouble())
+    {
+        /* Set the timestamp from the JSON data */
+        mTimestamp = json["timestamp"].toInt();
+    }
+
     /* Find "inputs" section in JSON object and ensure it is set to an array */
     if (json.contains("inputs") && json["inputs"].isArray())
     {
@@ -115,8 +127,11 @@ void ProductionData::jsonWrite(QJsonObject &json) const
         product.jsonWrite(outputObject);
 
         /* Append the JSON object to the JSON array */
-        inputArray.append(outputObject);
+        outputArray.append(outputObject);
     }
+
+    /* Set the JSON data for "timestamp" */
+    json["timestamp"] = mTimestamp;
 
     /* Set the JSON data for "inputs" to the JSON array */
     json["inputs"] = inputArray;

@@ -14,6 +14,8 @@ class ProductionData
 public:
     ProductionData();
 
+    int getTimestamp() const;
+
     QVector<Product> getInputs() const;
     void setInputs(const QVector<Product> &products);
 
@@ -25,6 +27,7 @@ public:
 
     void print(int indentation = 0) const;
 private:
+    int mTimestamp;
     QVector<Product> mInputs;
     QVector<Product> mOutputs;
 };
