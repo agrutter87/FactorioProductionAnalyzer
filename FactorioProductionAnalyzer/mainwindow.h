@@ -9,6 +9,8 @@
 
 #include "productionanalyzer.h"
 
+#define NUM_CHARTS_PER_ROW  (3)
+
 namespace Ui
 {
     class MainWindow;
@@ -21,11 +23,18 @@ class MainWindow : public QMainWindow
 public:
     typedef struct
     {
+        QtCharts::QLineSeries *lineSeries;
+        int numDataToAvg;
+    } ProductionAnalyzerSeries;
+
+    typedef struct
+    {
         QtCharts::QChart *chart;
         QtCharts::QChartView *chartView;
         QtCharts::QValueAxis *timestampAxisX;
         QtCharts::QValueAxis *timestampAxisY;
-        QtCharts::QLineSeries *lineSeries;
+        QtCharts::QLineSeries *mainLineSeries;
+        QVector<ProductionAnalyzerSeries> productionAnalyzerSeries;
         Product product;
         qreal x;
         qreal minValue;

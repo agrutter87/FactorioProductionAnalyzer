@@ -3,7 +3,7 @@
 
 #include "productiondata.h"
 
-#define PRODUCTION_DATA_BUFFER_SIZE_OBJECTS_MAX (20)
+#define PRODUCTION_DATA_BUFFER_SIZE_OBJECTS_MAX (10 * 60)
 #define PRODUCTION_DATA_READ_PERIOD_MS          (1000)
 
 class ProductionAnalyzer
