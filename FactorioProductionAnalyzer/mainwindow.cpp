@@ -33,7 +33,11 @@ void MainWindow::on_actionOpen_triggered()
     qDebug("MainWindow::on_actionOpen_triggered");
 
     QString fileDialogCaption = "Caption";
+#ifdef WIN32
+    QString fileDialogPath = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/AppData/Roaming/Factorio/script-output/FactorioProductionAnalzyer/production_data.json";
+#else
     QString fileDialogPath = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/.factorio/script-output/FactorioProductionAnalyzer/production_data.json";
+#endif
     QString fileDialogFilter = "JSON (*.json);;DAT (*.dat)";
     QString fileDialogFilterDefault = "JSON (*.json)";
     QString fileName = QFileDialog::getOpenFileName(this,
