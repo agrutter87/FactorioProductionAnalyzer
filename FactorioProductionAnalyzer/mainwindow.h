@@ -19,11 +19,26 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
+    typedef struct
+    {
+        QtCharts::QChart *chart;
+        QtCharts::QChartView *chartView;
+        QtCharts::QValueAxis *timestampAxisX;
+        QtCharts::QValueAxis *timestampAxisY;
+        QtCharts::QLineSeries *lineSeries;
+        Product product;
+        qreal x;
+        qreal minValue;
+        qreal maxValue;
+        qreal prevValue;
+        bool firstTime;
+    } ProductionAnalyzerGraph;
+
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    void createChart();
-    void updateChart();
+    void createChart(const QString &name);
+    void updateCharts();
 
 private slots:
     void on_actionOpen_triggered();
@@ -34,13 +49,7 @@ private:
     ProductionAnalyzer mProductionAnalyzer;
     QTimer *periodicReadTimer;
 
-    QtCharts::QChart *mChart;
-    QtCharts::QChartView *mChartView;
-    QtCharts::QValueAxis *mTimestampAxisX;
-    QtCharts::QValueAxis *mTimestampAxisY;
-
-    QtCharts::QLineSeries *mLineSeries;
-    QtCharts::QLineSeries *mLineSeries2;
+    QVector<ProductionAnalyzerGraph> mProductionAnalyzerGraphs;
 };
 
 #endif // MAINWINDOW_H

@@ -16,7 +16,9 @@ MainWindow::MainWindow(QWidget *parent)
     periodicReadTimer = new QTimer(this);
     connect(periodicReadTimer, SIGNAL(timeout()), this, SLOT(periodicRead()));
 
-    createChart();
+    createChart("iron-ore");
+    createChart("copper-ore");
+    createChart("coal");
 }
 
 MainWindow::~MainWindow()
@@ -65,134 +67,111 @@ void MainWindow::on_actionOpen_triggered()
  *************************************************************************/
 void MainWindow::periodicRead(void)
 {
-    updateChart();
+    updateCharts();
 }
 
-void MainWindow::createChart()
+void MainWindow::createChart(const QString &name)
 {
-    mChart = new QtCharts::QChart();
-    mChartView = new QtCharts::QChartView(mChart, ui->centralWidget);
+    ProductionAnalyzerGraph productionAnalyzerGraph;
+    productionAnalyzerGraph.product.setName(name);
 
-    mTimestampAxisX = new QtCharts::QValueAxis;
-    mTimestampAxisY = new QtCharts::QValueAxis;
+    productionAnalyzerGraph.x = 0;
+    productionAnalyzerGraph.minValue = 999999999;
+    productionAnalyzerGraph.maxValue = 0;
+    productionAnalyzerGraph.prevValue = 0;
+    productionAnalyzerGraph.firstTime = true;
+    productionAnalyzerGraph.chart = new QtCharts::QChart();
+    productionAnalyzerGraph.chartView = new QtCharts::QChartView(productionAnalyzerGraph.chart, ui->centralWidget);
 
-    mLineSeries = new QtCharts::QLineSeries();
-    mLineSeries2 = new QtCharts::QLineSeries();
+    productionAnalyzerGraph.timestampAxisX = new QtCharts::QValueAxis;
+    productionAnalyzerGraph.timestampAxisY = new QtCharts::QValueAxis;
 
-    mChart->addSeries(mLineSeries);
-    mChart->addSeries(mLineSeries2);
+    productionAnalyzerGraph.lineSeries = new QtCharts::QLineSeries();
 
-    mChart->setTitle("Timestamp Chart");
-    mChart->addAxis(mTimestampAxisX, Qt::AlignBottom);
-    mChart->addAxis(mTimestampAxisY, Qt::AlignLeft);
+    productionAnalyzerGraph.chart->addSeries(productionAnalyzerGraph.lineSeries);
 
-    mLineSeries->attachAxis(mTimestampAxisY);
-    mLineSeries->attachAxis(mTimestampAxisX);
-    mLineSeries->setName("copper-plate");
+    productionAnalyzerGraph.chart->setTitle(name);
+    productionAnalyzerGraph.chart->legend()->hide();
+    productionAnalyzerGraph.chart->addAxis(productionAnalyzerGraph.timestampAxisX, Qt::AlignBottom);
+    productionAnalyzerGraph.chart->addAxis(productionAnalyzerGraph.timestampAxisY, Qt::AlignLeft);
 
-    mLineSeries2->attachAxis(mTimestampAxisY);
-    mLineSeries2->attachAxis(mTimestampAxisX);
-    mLineSeries2->setName("iron-plate");
+    productionAnalyzerGraph.lineSeries->attachAxis(productionAnalyzerGraph.timestampAxisY);
+    productionAnalyzerGraph.lineSeries->attachAxis(productionAnalyzerGraph.timestampAxisX);
+    productionAnalyzerGraph.lineSeries->setName(name);
 
-    mChartView->setRenderHint(QPainter::Antialiasing);
+    productionAnalyzerGraph.chartView->setRenderHint(QPainter::Antialiasing);
 
-    ui->horizontalLayout->addWidget(mChartView);
+    ui->horizontalLayout->addWidget(productionAnalyzerGraph.chartView);
+
+    mProductionAnalyzerGraphs.append(productionAnalyzerGraph);
 }
 
-void MainWindow::updateChart()
+void MainWindow::updateCharts()
 {
-    static qreal x = 0;
     QVector<Product> newInputs;
-    static qreal minValue = 999999999;
-    static qreal maxValue = 0;
     qreal curValue = 0;
-    static qreal prevValue = 0;
-    static qreal prevValue2 = 0;
-    static bool firstTime = true;
-    static bool firstTime2 = true;
     qreal prodValue = 0;
 
     qDebug("MainWindow::periodicRead");
     mProductionAnalyzer.fileRead();
 
     newInputs = mProductionAnalyzer.getProductionData().last().getInputs();
-    foreach (const Product product, newInputs)
+
+    for(int i = 0; i < mProductionAnalyzerGraphs.size(); i++)
     {
-        if(product.getName().contains("copper-plate"))
+        foreach (const Product &product, newInputs)
         {
-            qDebug("copper-plate found");
-
-            curValue = product.getValue();
-
-            if(firstTime)
+            if(product.getName().contains(mProductionAnalyzerGraphs[i].product.getName()))
             {
-                prodValue = 0;
-                prevValue = curValue;
-                firstTime = false;
-            }
-            else
-            {
-                prodValue = curValue - prevValue;
-                prevValue = curValue;
-            }
+                qDebug() << mProductionAnalyzerGraphs[i].product.getName() << "found";
 
-            if(prodValue < minValue)
-            {
-                minValue = prodValue;
-            }
+                curValue = product.getValue();
+                qDebug() << "curValue = " << curValue;
+                qDebug() << "firstTime = " << mProductionAnalyzerGraphs[i].firstTime;
 
-            if(prodValue > maxValue)
-            {
-                maxValue = prodValue;
-            }
+                if(mProductionAnalyzerGraphs[i].firstTime)
+                {
+                    prodValue = 0;
+                    mProductionAnalyzerGraphs[i].prevValue = curValue;
+                    mProductionAnalyzerGraphs[i].firstTime = false;
+                }
+                else
+                {
+                    prodValue = curValue - mProductionAnalyzerGraphs[i].prevValue;
+                    mProductionAnalyzerGraphs[i].prevValue = curValue;
+                }
+                qDebug() << "prodValue = " << prodValue;
 
-            mLineSeries->append(x, prodValue);
+                if(prodValue < mProductionAnalyzerGraphs[i].minValue)
+                {
+                    mProductionAnalyzerGraphs[i].minValue = prodValue;
+                }
+
+                if(prodValue > mProductionAnalyzerGraphs[i].maxValue)
+                {
+                    mProductionAnalyzerGraphs[i].maxValue = prodValue;
+                }
+
+                mProductionAnalyzerGraphs[i].lineSeries->append(mProductionAnalyzerGraphs[i].x, prodValue);
+            }
         }
-        else if(product.getName().contains("iron-plate"))
+
+        mProductionAnalyzerGraphs[i].timestampAxisY->setMax(mProductionAnalyzerGraphs[i].maxValue);
+        mProductionAnalyzerGraphs[i].timestampAxisY->setMin(mProductionAnalyzerGraphs[i].minValue);
+
+        if(mProductionAnalyzerGraphs[i].x > mProductionAnalyzerGraphs[i].timestampAxisX->max())
         {
-            qDebug("iron-plate found");
-            curValue = product.getValue();
-            if(firstTime2)
-            {
-                prodValue = 0;
-                prevValue2 = curValue;
-                firstTime2 = false;
-            }
-            else
-            {
-                prodValue = curValue - prevValue2;
-                prevValue2 = curValue;
-            }
+            mProductionAnalyzerGraphs[i].timestampAxisX->setMax(mProductionAnalyzerGraphs[i].x);
 
-            if(prodValue < minValue)
+    /* Enable this if you only want to see the data which is available in the QVector of ProductionData: */
+    #if (0)
+            if(mProductionAnalyzerGraphs[i].x >= PRODUCTION_DATA_BUFFER_SIZE_OBJECTS_MAX)
             {
-                minValue = prodValue;
+                mProductionAnalyzerGraphs[i].timestampAxisX->setMin(mProductionAnalyzerGraphs[i].x - PRODUCTION_DATA_BUFFER_SIZE_OBJECTS_MAX + 1);
             }
-
-            if(prodValue > maxValue)
-            {
-                maxValue = prodValue;
-            }
-
-            mLineSeries2->append(x, prodValue);
+    #endif
         }
+
+        mProductionAnalyzerGraphs[i].x = mProductionAnalyzerGraphs[i].x + 1;
     }
-
-    mTimestampAxisY->setMax(maxValue);
-    mTimestampAxisY->setMin(minValue);
-
-    if(x > mTimestampAxisX->max())
-    {
-        mTimestampAxisX->setMax(x);
-
-/* Enable this if you only want to see the data which is available in the QVector of ProductionData: */
-#if 0
-        if(x >= PRODUCTION_DATA_BUFFER_SIZE_OBJECTS_MAX)
-        {
-            mTimestampAxisX->setMin(x - PRODUCTION_DATA_BUFFER_SIZE_OBJECTS_MAX + 1);
-        }
-#endif
-    }
-
-    x = x + 1;
 }
