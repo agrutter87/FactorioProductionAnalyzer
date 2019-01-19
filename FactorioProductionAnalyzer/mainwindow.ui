@@ -14,25 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QLCDNumber" name="lcdNumber">
-    <property name="geometry">
-     <rect>
-      <x>33</x>
-      <y>80</y>
-      <width>341</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="smallDecimalPoint">
-     <bool>false</bool>
-    </property>
-    <property name="digitCount">
-     <number>9</number>
-    </property>
-    <property name="segmentStyle">
-     <enum>QLCDNumber::Flat</enum>
-    </property>
-   </widget>
+   <layout class="QHBoxLayout" name="horizontalLayout"/>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

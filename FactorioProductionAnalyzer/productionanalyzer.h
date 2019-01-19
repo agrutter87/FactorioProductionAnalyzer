@@ -3,6 +3,9 @@
 
 #include "productiondata.h"
 
+#define PRODUCTION_DATA_BUFFER_SIZE_OBJECTS_MAX (20)
+#define PRODUCTION_DATA_READ_PERIOD_MS          (1000)
+
 class ProductionAnalyzer
 {
 public:
@@ -13,8 +16,8 @@ public:
 
     ProductionAnalyzer();
 
-    ProductionData getProductionData() const;
-    void setProductionData(ProductionData &productionData);
+    QVector<ProductionData> getProductionData() const;
+    void setProductionData(const QVector<ProductionData> &productionData);
 
     void setFile(SaveFormat saveFormat, QString &fileName);
 
@@ -25,7 +28,7 @@ public:
     void jsonWrite(QJsonObject &json) const;
 
 private:
-    ProductionData mProductionData;
+    QVector<ProductionData> mProductionData;
     QString mFileFormat;
     QString mFileName;
 };

@@ -8,12 +8,12 @@ ProductionAnalyzer::ProductionAnalyzer()
 
 }
 
-ProductionData ProductionAnalyzer::getProductionData() const
+QVector<ProductionData> ProductionAnalyzer::getProductionData() const
 {
     return mProductionData;
 }
 
-void ProductionAnalyzer::setProductionData(ProductionData &productionData)
+void ProductionAnalyzer::setProductionData(const QVector<ProductionData> &productionData)
 {
     mProductionData = productionData;
 }
@@ -70,15 +70,28 @@ bool ProductionAnalyzer::fileWrite(SaveFormat saveFormat, QString &fileName) con
 
 void ProductionAnalyzer::jsonRead(const QJsonObject &json)
 {
+    ProductionData productionData;
+
     if(json.contains("productiondata") && json["productiondata"].isObject())
     {
-        mProductionData.jsonRead(json["productiondata"].toObject());
+        productionData.jsonRead(json["productiondata"].toObject());
+    }
+
+    mProductionData.append(productionData);
+
+    while(mProductionData.size() > PRODUCTION_DATA_BUFFER_SIZE_OBJECTS_MAX)
+    {
+        mProductionData.removeFirst();
     }
 }
 
 void ProductionAnalyzer::jsonWrite(QJsonObject &json) const
 {
     QJsonObject productionObject;
-    mProductionData.jsonWrite(productionObject);
-    json["productiondata"] = productionObject;
+
+    if(!mProductionData.isEmpty())
+    {
+        mProductionData.last().jsonWrite(productionObject);
+        json["productiondata"] = productionObject;
+    }
 }
