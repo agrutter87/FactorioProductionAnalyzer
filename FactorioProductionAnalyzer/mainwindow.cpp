@@ -184,13 +184,14 @@ void MainWindow::updateChart()
     if(x > mTimestampAxisX->max())
     {
         mTimestampAxisX->setMax(x);
-		
-        /* Enable this if you only want to see the data which is available in the QVector of ProductionData:
+
+/* Enable this if you only want to see the data which is available in the QVector of ProductionData: */
+#if 0
         if(x >= PRODUCTION_DATA_BUFFER_SIZE_OBJECTS_MAX)
         {
             mTimestampAxisX->setMin(x - PRODUCTION_DATA_BUFFER_SIZE_OBJECTS_MAX + 1);
         }
-        */
+#endif
     }
 
     x = x + 1;
