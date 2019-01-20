@@ -140,7 +140,7 @@ void MainWindow::on_actionNewChart_triggered()
     connect(okButton, SIGNAL(released()), this, SLOT(on_signalNewChartOkButton_released()));
 
     QPushButton *cancelButton = new QPushButton("Cancel");
-    connect(okButton, SIGNAL(released()), this, SLOT(on_signalNewChartCancelButton_released()));
+    connect(cancelButton, SIGNAL(released()), this, SLOT(on_signalNewChartCancelButton_released()));
 
     horizontalLayout1->setAlignment(Qt::AlignCenter);
     horizontalLayout1->addWidget(itemNameLabel);
