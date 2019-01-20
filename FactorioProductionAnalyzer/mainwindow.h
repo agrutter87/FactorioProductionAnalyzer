@@ -6,10 +6,18 @@
 #include <QChartView>
 #include <QValueAxis>
 #include <QLineSeries>
+#include <QHBoxLayout>
 
 #include "productionanalyzer.h"
 
 #define NUM_CHARTS_PER_ROW  (3)
+#define HBOXLAYOUTS_MAX     (3)
+#define TABWIDGETS_MAX      (9)
+#if (TABWIDGETS_MAX % HBOXLAYOUTS_MAX != 0)
+#error "TABWIDGETS_MAX must be divisible by HBOXLAYOUTS_MAX"
+#else
+#define VBOXLAYOUT_ROWS     (TABWIDGETS_MAX / HBOXLAYOUTS_MAX)
+#endif
 
 namespace Ui
 {
@@ -46,19 +54,23 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    void createChart(const QString &name);
+    void createChart(const QString &name, QTabWidget *tabWidget, Product::ProductType productType);
     void updateCharts();
 
 private slots:
     void on_actionOpen_triggered();
-    void periodicRead(void);
+    void on_actionNewChart_triggered();
+
+    void on_signalPeriodicReadTimer_timeout();
 
 private:
     Ui::MainWindow *ui;
     ProductionAnalyzer mProductionAnalyzer;
     QTimer *periodicReadTimer;
-
     QVector<ProductionAnalyzerGraph> mProductionAnalyzerGraphs;
+
+    QTabWidget *mTabWidgets[TABWIDGETS_MAX];
+    QHBoxLayout *mHBoxLayouts[HBOXLAYOUTS_MAX];
 };
 
 #endif // MAINWINDOW_H

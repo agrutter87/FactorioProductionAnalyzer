@@ -27,6 +27,16 @@ void Product::setValue(double value)
     mValue = value;
 }
 
+Product::ProductType Product::getProductType() const
+{
+    return mProductType;
+}
+
+void Product::setProductType(ProductType productType)
+{
+    mProductType = productType;
+}
+
 void Product::jsonRead(const QJsonObject &json)
 {
     /* Find "name" section in JSON object and ensure it is set to a String */

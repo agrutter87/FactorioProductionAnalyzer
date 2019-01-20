@@ -11,23 +11,61 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow)
 {
+    /* Setup Qt Designer part of the UI */
     ui->setupUi(this);
 
+    /* Create a timer to use for periodic reading of the Factorio mod output data file */
     periodicReadTimer = new QTimer(this);
-    connect(periodicReadTimer, SIGNAL(timeout()), this, SLOT(periodicRead()));
+    connect(periodicReadTimer, SIGNAL(timeout()), this, SLOT(on_signalPeriodicReadTimer_timeout()));
 
-    createChart("iron-ore");
-    createChart("copper-ore");
-    createChart("coal");
-    createChart("iron-plate");
-    createChart("copper-plate");
-    createChart("science-pack-1");
+    /* Create HBOXLAYOUT_MAX number of QHBoxLayout rows */
+    for(int i = 0; i < HBOXLAYOUTS_MAX; i++)
+    {
+        mHBoxLayouts[i] = new QHBoxLayout();
+        mHBoxLayouts[i]->setSpacing(6);
+        mHBoxLayouts[i]->setObjectName(QString("horizontalLayout"+QString().number(i)));
+
+        ui->verticalLayout->addLayout(mHBoxLayouts[i]);
+    }
+
+    /* Create TABWIDGETS_MAX number of QTabWidgets and set them to their positions in the layouts */
+    for(int i = 0; i < TABWIDGETS_MAX; i++)
+    {
+        static int j = 0;
+
+        /* Create a new QTabWidget and store the pointer in our array */
+        mTabWidgets[i] = new QTabWidget();
+        mTabWidgets[i]->hide();
+
+        /* Start a new row if needed to fill the HBOXLAYOUTS_MAX number of horizontal layouts */
+        if(i > 0 && i % (TABWIDGETS_MAX / HBOXLAYOUTS_MAX) == 0)
+        {
+            j++;
+        }
+
+        /* Add the new QTabWidget to the horizontal layout */
+        mHBoxLayouts[j]->addWidget(mTabWidgets[i]);
+    }
+
+    /* Examples for how to create the charts */
+    createChart("iron-ore",         mTabWidgets[0], Product::Input);
+    createChart("copper-ore",       mTabWidgets[0], Product::Input);
+    createChart("coal",             mTabWidgets[0], Product::Input);
+    createChart("iron-plate",       mTabWidgets[1], Product::Input);
+    createChart("copper-plate",     mTabWidgets[1], Product::Input);
+    createChart("science-pack-1",   mTabWidgets[2], Product::Input);
+    createChart("iron-ore",         mTabWidgets[3], Product::Output);
+    createChart("copper-ore",       mTabWidgets[3], Product::Output);
+    createChart("coal",             mTabWidgets[3], Product::Output);
+    createChart("iron-plate",       mTabWidgets[4], Product::Output);
+    createChart("copper-plate",     mTabWidgets[4], Product::Output);
+    createChart("science-pack-1",   mTabWidgets[5], Product::Output);
 }
 
 MainWindow::~MainWindow()
 {
-    delete ui;
     delete periodicReadTimer;
+    delete ui;
 }
 
 /*************************************************************************
@@ -35,9 +73,8 @@ MainWindow::~MainWindow()
  *************************************************************************/
 void MainWindow::on_actionOpen_triggered()
 {
-    qDebug("MainWindow::on_actionOpen_triggered");
-
-    QString fileDialogCaption = "Caption";
+    /* Set the strings used in the getOpenFileName dialog */
+    QString fileDialogCaption = "Open File";
 #ifdef WIN32
     QString fileDialogPath = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/AppData/Roaming/Factorio/script-output/FactorioProductionAnalzyer/production_data.json";
 #else
@@ -45,44 +82,59 @@ void MainWindow::on_actionOpen_triggered()
 #endif
     QString fileDialogFilter = "JSON (*.json);;DAT (*.dat)";
     QString fileDialogFilterDefault = "JSON (*.json)";
+
+    /* Open the getOpenFileName dialog and wait for selection */
     QString fileName = QFileDialog::getOpenFileName(this,
                                                     fileDialogCaption,
                                                     fileDialogPath,
                                                     fileDialogFilter,
                                                     &fileDialogFilterDefault);
+
+    /* If the filename is valid... */
     if(!fileName.isEmpty())
     {
+        /* If the file is a JSON file... */
         if(fileName.contains(".json"))
         {
+            /* Set the file information as a JSON file */
             mProductionAnalyzer.setFile(ProductionAnalyzer::Json, fileName);
             periodicReadTimer->start(PRODUCTION_DATA_READ_PERIOD_MS);
         }
         else if(fileName.contains(".dat"))
         {
+            /* Otherwise set it as a Binary file */
             mProductionAnalyzer.setFile(ProductionAnalyzer::Binary, fileName);
             periodicReadTimer->start(PRODUCTION_DATA_READ_PERIOD_MS);
         }
     }
 }
 
+void MainWindow::on_actionNewChart_triggered()
+{
+
+}
+
+
 /*************************************************************************
  * SLOT ACTIONS
  *************************************************************************/
-void MainWindow::periodicRead(void)
+void MainWindow::on_signalPeriodicReadTimer_timeout(void)
 {
+    qDebug("MainWindow::periodicRead");
+    mProductionAnalyzer.fileRead();
+
     updateCharts();
 }
 
 /*************************************************************************
  * MainWindow::createChart
  *************************************************************************/
-void MainWindow::createChart(const QString &name)
+void MainWindow::createChart(const QString &name, QTabWidget *tabWidget, Product::ProductType productType)
 {
-    static QHBoxLayout *currentHorizontalLayout = ui->horizontalLayout;
-
     /* Create ProductionAnalyzerGraph */
     ProductionAnalyzerGraph productionAnalyzerGraph;
     productionAnalyzerGraph.product.setName(name);
+    productionAnalyzerGraph.product.setProductType(productType);
     productionAnalyzerGraph.x = 0;
     productionAnalyzerGraph.minValue = 999999999;
     productionAnalyzerGraph.maxValue = 0;
@@ -140,20 +192,9 @@ void MainWindow::createChart(const QString &name)
     /* Configure QChartView */
     productionAnalyzerGraph.chartView->setRenderHint(QPainter::Antialiasing);
 
-    /* Configure Qt Layouts */
-    if((mProductionAnalyzerGraphs.size() % NUM_CHARTS_PER_ROW) == 0)
-    {
-        QHBoxLayout *horizontalLayout;
-        horizontalLayout = new QHBoxLayout();
-        horizontalLayout->setSpacing(6);
-        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
-
-        ui->verticalLayout->addLayout(horizontalLayout);
-        currentHorizontalLayout = horizontalLayout;
-    }
-
-    /* Add QChartView to Qt Layout */
-    currentHorizontalLayout->addWidget(productionAnalyzerGraph.chartView);
+    /* Add a new tab to the QTabView where this will be placed */
+    tabWidget->addTab(productionAnalyzerGraph.chartView, name);
+    tabWidget->show();
 
     /* Add now fully configured ProductionAnalyzerGraphs to QVector */
     mProductionAnalyzerGraphs.append(productionAnalyzerGraph);
@@ -165,19 +206,33 @@ void MainWindow::createChart(const QString &name)
 void MainWindow::updateCharts()
 {
     QVector<Product> newInputs;
+    QVector<Product> newOutputs;
     qreal curValue = 0;
     qreal outValue = 0;
 
-    qDebug("MainWindow::periodicRead");
-    mProductionAnalyzer.fileRead();
-
+    /* Get the latest production inputs */
     newInputs = mProductionAnalyzer.getProductionData().last().getInputs();
+
+    /* Get the latest production inputs */
+    newOutputs = mProductionAnalyzer.getProductionData().last().getOutputs();
 
     /* Loop through and update each graph */
     for(int i = 0; i < mProductionAnalyzerGraphs.size(); i++)
     {
+        QVector<Product> products;
+        switch(mProductionAnalyzerGraphs[i].product.getProductType())
+        {
+            case Product::Input:
+                products = newInputs;
+            break;
+
+            case Product::Output:
+                products = newOutputs;
+            break;
+        }
+
         /* Look through the products available in the file */
-        foreach (const Product &product, newInputs)
+        foreach (const Product &product, products)
         {
             /* If we find the data meant for this graph... */
             if(product.getName() == mProductionAnalyzerGraphs[i].product.getName())
@@ -238,19 +293,23 @@ void MainWindow::updateCharts()
             }
         }
 
+        /* Set min/max values for axes using the values saved above */
         mProductionAnalyzerGraphs[i].timestampAxisY->setMax(mProductionAnalyzerGraphs[i].maxValue);
         mProductionAnalyzerGraphs[i].timestampAxisY->setMin(mProductionAnalyzerGraphs[i].minValue);
 
+        /* Set max x if the x value is larger than the current max */
         if(mProductionAnalyzerGraphs[i].x > mProductionAnalyzerGraphs[i].timestampAxisX->max())
         {
             mProductionAnalyzerGraphs[i].timestampAxisX->setMax(mProductionAnalyzerGraphs[i].x);
 
+            /* Set the min higher to keep it "scrolling" once it fills the time span */
             if(mProductionAnalyzerGraphs[i].x >= PRODUCTION_DATA_BUFFER_SIZE_OBJECTS_MAX)
             {
                 mProductionAnalyzerGraphs[i].timestampAxisX->setMin(mProductionAnalyzerGraphs[i].x - PRODUCTION_DATA_BUFFER_SIZE_OBJECTS_MAX + 1);
             }
         }
 
+        /* Increment x for the next go around */
         mProductionAnalyzerGraphs[i].x = mProductionAnalyzerGraphs[i].x + 1;
     }
 }

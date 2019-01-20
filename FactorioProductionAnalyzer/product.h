@@ -9,6 +9,12 @@ class Product
     Q_GADGET
 
 public:
+    typedef enum
+    {
+        Input,
+        Output,
+    } ProductType;
+
     Product();
     Product(const QString &name, int value);
 
@@ -18,6 +24,9 @@ public:
     double getValue() const;
     void setValue(double value);
 
+    ProductType getProductType() const;
+    void setProductType(ProductType productType);
+
     void jsonRead(const QJsonObject &json);
     void jsonWrite(QJsonObject &json) const;
 
@@ -25,6 +34,7 @@ public:
 private:
     QString mName;
     double mValue;
+    ProductType mProductType;
 };
 
 #endif // PRODUCT_H
