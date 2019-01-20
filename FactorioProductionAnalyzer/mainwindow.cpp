@@ -436,4 +436,6 @@ void MainWindow::populateItemList()
             mItemNameStringList.append(name);
         }
     }
+
+    mItemNameStringList.sort();
 }
