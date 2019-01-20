@@ -7,6 +7,7 @@
 #include <QValueAxis>
 #include <QLineSeries>
 #include <QHBoxLayout>
+#include <QDialog>
 
 #include "productionanalyzer.h"
 
@@ -56,12 +57,15 @@ public:
 
     void createChart(const QString &name, QTabWidget *tabWidget, Product::ProductType productType);
     void updateCharts();
+    void populateItemList();
 
 private slots:
     void on_actionOpen_triggered();
     void on_actionNewChart_triggered();
 
     void on_signalPeriodicReadTimer_timeout();
+    void on_signalNewChartOkButton_released();
+    void on_signalNewChartCancelButton_released();
 
 private:
     Ui::MainWindow *ui;
@@ -71,6 +75,10 @@ private:
 
     QTabWidget *mTabWidgets[TABWIDGETS_MAX];
     QHBoxLayout *mHBoxLayouts[HBOXLAYOUTS_MAX];
+
+    QDialog *mNewChartDialog;
+    QStringList mItemNameStringList;
+    bool mNewChartOkButton_released;
 };
 
 #endif // MAINWINDOW_H

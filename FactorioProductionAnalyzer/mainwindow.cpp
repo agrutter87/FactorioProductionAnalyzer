@@ -7,6 +7,10 @@
 #include <QFileDialog>
 #include <QStandardPaths>
 #include <QTimer>
+#include <QDialog>
+#include <QLabel>
+#include <QComboBox>
+#include <QPushButton>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow)
@@ -47,19 +51,7 @@ MainWindow::MainWindow(QWidget *parent)
         mHBoxLayouts[j]->addWidget(mTabWidgets[i]);
     }
 
-    /* Examples for how to create the charts */
-    createChart("iron-ore",         mTabWidgets[0], Product::Input);
-    createChart("copper-ore",       mTabWidgets[0], Product::Input);
-    createChart("coal",             mTabWidgets[0], Product::Input);
-    createChart("iron-plate",       mTabWidgets[1], Product::Input);
-    createChart("copper-plate",     mTabWidgets[1], Product::Input);
-    createChart("science-pack-1",   mTabWidgets[2], Product::Input);
-    createChart("iron-ore",         mTabWidgets[3], Product::Output);
-    createChart("copper-ore",       mTabWidgets[3], Product::Output);
-    createChart("coal",             mTabWidgets[3], Product::Output);
-    createChart("iron-plate",       mTabWidgets[4], Product::Output);
-    createChart("copper-plate",     mTabWidgets[4], Product::Output);
-    createChart("science-pack-1",   mTabWidgets[5], Product::Output);
+    mNewChartOkButton_released = false;
 }
 
 MainWindow::~MainWindow()
@@ -98,12 +90,16 @@ void MainWindow::on_actionOpen_triggered()
         {
             /* Set the file information as a JSON file */
             mProductionAnalyzer.setFile(ProductionAnalyzer::Json, fileName);
+            mProductionAnalyzer.fileRead();
+            populateItemList();
             periodicReadTimer->start(PRODUCTION_DATA_READ_PERIOD_MS);
         }
         else if(fileName.contains(".dat"))
         {
             /* Otherwise set it as a Binary file */
             mProductionAnalyzer.setFile(ProductionAnalyzer::Binary, fileName);
+            mProductionAnalyzer.fileRead();
+            populateItemList();
             periodicReadTimer->start(PRODUCTION_DATA_READ_PERIOD_MS);
         }
     }
@@ -111,7 +107,83 @@ void MainWindow::on_actionOpen_triggered()
 
 void MainWindow::on_actionNewChart_triggered()
 {
+    mNewChartDialog = new QDialog();
+    mNewChartDialog->setModal(true);
+    mNewChartDialog->setWindowTitle("Configure Chart");
+    mNewChartDialog->setGeometry(this->x() + 300, this->y() + 300, 300, 100);
 
+    QVBoxLayout *verticalLayout = new QVBoxLayout(mNewChartDialog);
+
+    QHBoxLayout *horizontalLayout1 = new QHBoxLayout();
+    QHBoxLayout *horizontalLayout2 = new QHBoxLayout();
+    QHBoxLayout *horizontalLayout3 = new QHBoxLayout();
+    QHBoxLayout *horizontalLayout4 = new QHBoxLayout();
+
+    QLabel *itemNameLabel = new QLabel("Item name:");
+    QLabel *itemTypeLabel = new QLabel("Item type:");
+    QLabel *chartPositionLabel = new QLabel("Chart position:");
+
+    QComboBox *itemNameComboBox = new QComboBox();
+    itemNameComboBox->addItems(mItemNameStringList);
+
+    QComboBox *itemTypeComboBox = new QComboBox();
+    itemTypeComboBox->addItem("Input");
+    itemTypeComboBox->addItem("Output");
+
+    QComboBox *chartPositionComboBox = new QComboBox();
+    for(int i = 0; i < TABWIDGETS_MAX; i++)
+    {
+        chartPositionComboBox->addItem(QString().number(i+1));
+    }
+
+    QPushButton *okButton = new QPushButton("Ok");
+    connect(okButton, SIGNAL(released()), this, SLOT(on_signalNewChartOkButton_released()));
+
+    QPushButton *cancelButton = new QPushButton("Cancel");
+    connect(okButton, SIGNAL(released()), this, SLOT(on_signalNewChartCancelButton_released()));
+
+    horizontalLayout1->setAlignment(Qt::AlignCenter);
+    horizontalLayout1->addWidget(itemNameLabel);
+    horizontalLayout1->addWidget(itemNameComboBox);
+
+    horizontalLayout2->setAlignment(Qt::AlignCenter);
+    horizontalLayout2->addWidget(itemTypeLabel);
+    horizontalLayout2->addWidget(itemTypeComboBox);
+
+    horizontalLayout3->setAlignment(Qt::AlignCenter);
+    horizontalLayout3->addWidget(chartPositionLabel);
+    horizontalLayout3->addWidget(chartPositionComboBox);
+
+    horizontalLayout4->setAlignment(Qt::AlignRight);
+    horizontalLayout4->addWidget(okButton);
+    horizontalLayout4->addWidget(cancelButton);
+
+    verticalLayout->addLayout(horizontalLayout1);
+    verticalLayout->addLayout(horizontalLayout2);
+    verticalLayout->addLayout(horizontalLayout3);
+    verticalLayout->addLayout(horizontalLayout4);
+
+    mNewChartDialog->show();
+    mNewChartDialog->exec();
+
+    if(mNewChartOkButton_released && !itemNameComboBox->currentText().isEmpty())
+    {
+        mNewChartOkButton_released = false;
+
+        Product::ProductType productType = Product::Input;
+        if(itemTypeComboBox->currentText() == "Input")
+        {
+            productType = Product::Input;
+        }
+        else if(itemTypeComboBox->currentText() == "Output")
+        {
+            productType = Product::Output;
+        }
+
+        createChart(itemNameComboBox->currentText(), mTabWidgets[chartPositionComboBox->currentIndex()], productType);
+    }
+
+    delete mNewChartDialog;
 }
 
 
@@ -123,9 +195,21 @@ void MainWindow::on_signalPeriodicReadTimer_timeout(void)
     qDebug("MainWindow::periodicRead");
     mProductionAnalyzer.fileRead();
 
+    populateItemList();
     updateCharts();
 }
 
+void MainWindow::on_signalNewChartOkButton_released(void)
+{
+    mNewChartOkButton_released = true;
+
+    mNewChartDialog->close();
+}
+
+void MainWindow::on_signalNewChartCancelButton_released(void)
+{
+    mNewChartDialog->close();
+}
 /*************************************************************************
  * MainWindow::createChart
  *************************************************************************/
@@ -271,6 +355,10 @@ void MainWindow::updateCharts()
 
                 /* Append the data to the main lineSeries */
                 mProductionAnalyzerGraphs[i].mainLineSeries->append(mProductionAnalyzerGraphs[i].x, outValue);
+                if(mProductionAnalyzerGraphs[i].mainLineSeries->count() > PRODUCTION_DATA_BUFFER_SIZE_OBJECTS_MAX)
+                {
+                    mProductionAnalyzerGraphs[i].mainLineSeries->removePoints(mProductionAnalyzerGraphs[i].mainLineSeries->count() - PRODUCTION_DATA_BUFFER_SIZE_OBJECTS_MAX, 1);
+                }
 
                 /* For each series on this ith graph */
                 for(int j = 0; j < mProductionAnalyzerGraphs[i].productionAnalyzerSeries.count(); j++)
@@ -288,6 +376,10 @@ void MainWindow::updateCharts()
                         outValue /= avg_count;
 
                         mProductionAnalyzerGraphs[i].productionAnalyzerSeries[j].lineSeries->append(mProductionAnalyzerGraphs[i].x, outValue);
+                        if(mProductionAnalyzerGraphs[i].productionAnalyzerSeries[j].lineSeries->count() > PRODUCTION_DATA_BUFFER_SIZE_OBJECTS_MAX)
+                        {
+                            mProductionAnalyzerGraphs[i].productionAnalyzerSeries[j].lineSeries->removePoints(mProductionAnalyzerGraphs[i].productionAnalyzerSeries[j].lineSeries->count() - PRODUCTION_DATA_BUFFER_SIZE_OBJECTS_MAX, 1);
+                        }
                     }
                 }
             }
@@ -311,5 +403,37 @@ void MainWindow::updateCharts()
 
         /* Increment x for the next go around */
         mProductionAnalyzerGraphs[i].x = mProductionAnalyzerGraphs[i].x + 1;
+    }
+}
+
+void MainWindow::populateItemList()
+{
+    QVector<Product> newInputs;
+    QVector<Product> newOutputs;
+
+    /* Get the latest production inputs */
+    newInputs = mProductionAnalyzer.getProductionData().last().getInputs();
+
+    /* Look through the products available in the file */
+    foreach (const Product &product, newInputs)
+    {
+        QString name = product.getName();
+        if(!mItemNameStringList.contains(name))
+        {
+            mItemNameStringList.append(name);
+        }
+    }
+
+    /* Get the latest production inputs */
+    newOutputs = mProductionAnalyzer.getProductionData().last().getOutputs();
+
+    /* Look through the products available in the file */
+    foreach (const Product &product, newOutputs)
+    {
+        QString name = product.getName();
+        if(!mItemNameStringList.contains(name))
+        {
+            mItemNameStringList.append(name);
+        }
     }
 }
