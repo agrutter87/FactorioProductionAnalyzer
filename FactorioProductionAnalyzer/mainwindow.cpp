@@ -39,6 +39,48 @@ MainWindow::MainWindow(QWidget *parent)
 
         /* Create a new QTabWidget and store the pointer in our array */
         mTabWidgets[i] = new QTabWidget();
+        mTabWidgets[i]->setTabsClosable(true);
+        mTabWidgets[i]->setMovable(true);
+        switch(i)
+        {
+        case 0:
+            connect(mTabWidgets[i], SIGNAL(tabCloseRequested(int)), this, SLOT(on_signalTabWidget_tabCloseRequested_0(int)));
+            break;
+
+        case 1:
+            connect(mTabWidgets[i], SIGNAL(tabCloseRequested(int)), this, SLOT(on_signalTabWidget_tabCloseRequested_1(int)));
+            break;
+
+        case 2:
+            connect(mTabWidgets[i], SIGNAL(tabCloseRequested(int)), this, SLOT(on_signalTabWidget_tabCloseRequested_2(int)));
+            break;
+
+        case 3:
+            connect(mTabWidgets[i], SIGNAL(tabCloseRequested(int)), this, SLOT(on_signalTabWidget_tabCloseRequested_3(int)));
+            break;
+
+        case 4:
+            connect(mTabWidgets[i], SIGNAL(tabCloseRequested(int)), this, SLOT(on_signalTabWidget_tabCloseRequested_4(int)));
+            break;
+
+        case 5:
+            connect(mTabWidgets[i], SIGNAL(tabCloseRequested(int)), this, SLOT(on_signalTabWidget_tabCloseRequested_5(int)));
+            break;
+
+        case 6:
+            connect(mTabWidgets[i], SIGNAL(tabCloseRequested(int)), this, SLOT(on_signalTabWidget_tabCloseRequested_6(int)));
+            break;
+
+        case 7:
+            connect(mTabWidgets[i], SIGNAL(tabCloseRequested(int)), this, SLOT(on_signalTabWidget_tabCloseRequested_7(int)));
+            break;
+
+        case 8:
+            connect(mTabWidgets[i], SIGNAL(tabCloseRequested(int)), this, SLOT(on_signalTabWidget_tabCloseRequested_8(int)));
+            break;
+        default:
+            break;
+        }
         mTabWidgets[i]->hide();
 
         /* Start a new row if needed to fill the HBOXLAYOUTS_MAX number of horizontal layouts */
@@ -210,6 +252,52 @@ void MainWindow::on_signalNewChartCancelButton_released(void)
 {
     mNewChartDialog->close();
 }
+
+void MainWindow::on_signalTabWidget_tabCloseRequested_0(int index)
+{
+    on_signalTabWidget_tabCloseRequested(index, mTabWidgets[0]);
+}
+void MainWindow::on_signalTabWidget_tabCloseRequested_1(int index)
+{
+    on_signalTabWidget_tabCloseRequested(index, mTabWidgets[1]);
+}
+void MainWindow::on_signalTabWidget_tabCloseRequested_2(int index)
+{
+    on_signalTabWidget_tabCloseRequested(index, mTabWidgets[2]);
+}
+void MainWindow::on_signalTabWidget_tabCloseRequested_3(int index)
+{
+    on_signalTabWidget_tabCloseRequested(index, mTabWidgets[3]);
+}
+void MainWindow::on_signalTabWidget_tabCloseRequested_4(int index)
+{
+    on_signalTabWidget_tabCloseRequested(index, mTabWidgets[4]);
+}
+void MainWindow::on_signalTabWidget_tabCloseRequested_5(int index)
+{
+    on_signalTabWidget_tabCloseRequested(index, mTabWidgets[5]);
+}
+void MainWindow::on_signalTabWidget_tabCloseRequested_6(int index)
+{
+    on_signalTabWidget_tabCloseRequested(index, mTabWidgets[6]);
+}
+void MainWindow::on_signalTabWidget_tabCloseRequested_7(int index)
+{
+    on_signalTabWidget_tabCloseRequested(index, mTabWidgets[7]);
+}
+void MainWindow::on_signalTabWidget_tabCloseRequested_8(int index)
+{
+    on_signalTabWidget_tabCloseRequested(index, mTabWidgets[8]);
+}
+
+void MainWindow::on_signalTabWidget_tabCloseRequested(int index, QTabWidget *tabWidget)
+{
+    tabWidget->removeTab(index);
+    if(tabWidget->currentIndex() == -1)
+    {
+        tabWidget->hide();
+    }
+}
 /*************************************************************************
  * MainWindow::createChart
  *************************************************************************/
@@ -217,71 +305,102 @@ void MainWindow::createChart(const QString &name, QTabWidget *tabWidget, Product
 {
     /* Create ProductionAnalyzerGraph */
     ProductionAnalyzerGraph productionAnalyzerGraph;
-    productionAnalyzerGraph.product.setName(name);
-    productionAnalyzerGraph.product.setProductType(productType);
-    productionAnalyzerGraph.x = 0;
-    productionAnalyzerGraph.minValue = 999999999;
-    productionAnalyzerGraph.maxValue = 0;
-    productionAnalyzerGraph.prevValue = 0;
-    productionAnalyzerGraph.firstTime = true;
+    QString tabNameProductType;
+    bool alreadyCreated = false;
 
-    /* Create QChart */
-    productionAnalyzerGraph.chart = new QtCharts::QChart();
-
-    /* Create QChartView */
-    productionAnalyzerGraph.chartView = new QtCharts::QChartView(productionAnalyzerGraph.chart, ui->centralWidget);
-
-    /* Create QAxes */
-    productionAnalyzerGraph.timestampAxisX = new QtCharts::QValueAxis;
-    productionAnalyzerGraph.timestampAxisY = new QtCharts::QValueAxis;
-
-    /* Create QLineSeries' */
-    productionAnalyzerGraph.mainLineSeries = new QtCharts::QLineSeries();
-
-    ProductionAnalyzerSeries productionAnalyzerSeries;
-    productionAnalyzerSeries.lineSeries = new QtCharts::QLineSeries();
-    productionAnalyzerSeries.numDataToAvg = 10;
-    productionAnalyzerGraph.productionAnalyzerSeries.append(productionAnalyzerSeries);
-
-    productionAnalyzerSeries.lineSeries = new QtCharts::QLineSeries();
-    productionAnalyzerSeries.numDataToAvg = 15;
-    productionAnalyzerGraph.productionAnalyzerSeries.append(productionAnalyzerSeries);
-
-    /* Add QLineSeries' to QChart */
-    productionAnalyzerGraph.chart->addSeries(productionAnalyzerGraph.mainLineSeries);
-    for(int i = 0; i < productionAnalyzerGraph.productionAnalyzerSeries.count(); i++)
+    for(int i = 0; i < mProductionAnalyzerGraphs.count(); i++)
     {
-        productionAnalyzerGraph.chart->addSeries(productionAnalyzerGraph.productionAnalyzerSeries[i].lineSeries);
+        if(mProductionAnalyzerGraphs[i].product.getName() == name && mProductionAnalyzerGraphs[i].product.getProductType() == productType)
+        {
+            qDebug() << "Chart already created, reopening in new tab";
+            productionAnalyzerGraph = mProductionAnalyzerGraphs[i];
+            alreadyCreated = true;
+            break;
+        }
     }
 
-    /* Configure QChart */
-    productionAnalyzerGraph.chart->setTitle(name);
-    //productionAnalyzerGraph.chart->legend()->hide();
-
-    /* Add QAxes to QChart */
-    productionAnalyzerGraph.chart->addAxis(productionAnalyzerGraph.timestampAxisX, Qt::AlignBottom);
-    productionAnalyzerGraph.chart->addAxis(productionAnalyzerGraph.timestampAxisY, Qt::AlignLeft);
-
-    /* Attach QLineSeries' to QAxes */
-    productionAnalyzerGraph.mainLineSeries->attachAxis(productionAnalyzerGraph.timestampAxisY);
-    productionAnalyzerGraph.mainLineSeries->attachAxis(productionAnalyzerGraph.timestampAxisX);
-    productionAnalyzerGraph.mainLineSeries->setName(name);
-    for(int i = 0; i < productionAnalyzerGraph.productionAnalyzerSeries.count(); i++)
+    if(!alreadyCreated)
     {
-        productionAnalyzerGraph.productionAnalyzerSeries[i].lineSeries->attachAxis(productionAnalyzerGraph.timestampAxisY);
-        productionAnalyzerGraph.productionAnalyzerSeries[i].lineSeries->attachAxis(productionAnalyzerGraph.timestampAxisX);
-        productionAnalyzerGraph.productionAnalyzerSeries[i].lineSeries->setName(name+"-avg-over-"+QString::number(productionAnalyzerGraph.productionAnalyzerSeries[i].numDataToAvg));
+        /* Initialize ProductionAnalyzerGraph */
+        productionAnalyzerGraph.product.setName(name);
+        productionAnalyzerGraph.product.setProductType(productType);
+        productionAnalyzerGraph.x = 0;
+        productionAnalyzerGraph.minValue = 999999999;
+        productionAnalyzerGraph.maxValue = 0;
+        productionAnalyzerGraph.prevValue = 0;
+        productionAnalyzerGraph.firstTime = true;
+
+        /* Create QChart */
+        productionAnalyzerGraph.chart = new QtCharts::QChart();
+
+        /* Create QChartView */
+        productionAnalyzerGraph.chartView = new QtCharts::QChartView(productionAnalyzerGraph.chart, ui->centralWidget);
+
+        /* Create QAxes */
+        productionAnalyzerGraph.timestampAxisX = new QtCharts::QValueAxis;
+        productionAnalyzerGraph.timestampAxisY = new QtCharts::QValueAxis;
+
+        /* Create QLineSeries' */
+        productionAnalyzerGraph.mainLineSeries = new QtCharts::QLineSeries();
+
+        ProductionAnalyzerSeries productionAnalyzerSeries;
+        productionAnalyzerSeries.lineSeries = new QtCharts::QLineSeries();
+        productionAnalyzerSeries.numDataToAvg = 10;
+        productionAnalyzerGraph.productionAnalyzerSeries.append(productionAnalyzerSeries);
+
+        productionAnalyzerSeries.lineSeries = new QtCharts::QLineSeries();
+        productionAnalyzerSeries.numDataToAvg = 15;
+        productionAnalyzerGraph.productionAnalyzerSeries.append(productionAnalyzerSeries);
+
+        /* Add QLineSeries' to QChart */
+        productionAnalyzerGraph.chart->addSeries(productionAnalyzerGraph.mainLineSeries);
+        for(int i = 0; i < productionAnalyzerGraph.productionAnalyzerSeries.count(); i++)
+        {
+            productionAnalyzerGraph.chart->addSeries(productionAnalyzerGraph.productionAnalyzerSeries[i].lineSeries);
+        }
+
+        /* Configure QChart */
+        productionAnalyzerGraph.chart->setTitle(name);
+        //productionAnalyzerGraph.chart->legend()->hide();
+
+        /* Add QAxes to QChart */
+        productionAnalyzerGraph.chart->addAxis(productionAnalyzerGraph.timestampAxisX, Qt::AlignBottom);
+        productionAnalyzerGraph.chart->addAxis(productionAnalyzerGraph.timestampAxisY, Qt::AlignLeft);
+
+        /* Attach QLineSeries' to QAxes */
+        productionAnalyzerGraph.mainLineSeries->attachAxis(productionAnalyzerGraph.timestampAxisY);
+        productionAnalyzerGraph.mainLineSeries->attachAxis(productionAnalyzerGraph.timestampAxisX);
+        productionAnalyzerGraph.mainLineSeries->setName(name);
+        for(int i = 0; i < productionAnalyzerGraph.productionAnalyzerSeries.count(); i++)
+        {
+            productionAnalyzerGraph.productionAnalyzerSeries[i].lineSeries->attachAxis(productionAnalyzerGraph.timestampAxisY);
+            productionAnalyzerGraph.productionAnalyzerSeries[i].lineSeries->attachAxis(productionAnalyzerGraph.timestampAxisX);
+            productionAnalyzerGraph.productionAnalyzerSeries[i].lineSeries->setName(name+"-avg-over-"+QString::number(productionAnalyzerGraph.productionAnalyzerSeries[i].numDataToAvg));
+        }
+
+        /* Configure QChartView */
+        productionAnalyzerGraph.chartView->setRenderHint(QPainter::Antialiasing);
     }
 
-    /* Configure QChartView */
-    productionAnalyzerGraph.chartView->setRenderHint(QPainter::Antialiasing);
+    switch(productionAnalyzerGraph.product.getProductType())
+    {
+    case Product::Input:
+        tabNameProductType = "-produced";
+        break;
+    case Product::Output:
+        tabNameProductType = "-consumed";
+        break;
+    }
 
     /* Add a new tab to the QTabView where this will be placed */
-    tabWidget->addTab(productionAnalyzerGraph.chartView, name);
+    tabWidget->addTab(productionAnalyzerGraph.chartView, name+tabNameProductType);
     tabWidget->show();
 
-    /* Add now fully configured ProductionAnalyzerGraphs to QVector */
-    mProductionAnalyzerGraphs.append(productionAnalyzerGraph);
+    if(!alreadyCreated)
+    {
+        /* Add now fully configured ProductionAnalyzerGraphs to QVector */
+        mProductionAnalyzerGraphs.append(productionAnalyzerGraph);
+    }
 }
 
 /*************************************************************************

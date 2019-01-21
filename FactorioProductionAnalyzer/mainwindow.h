@@ -14,10 +14,15 @@
 #define NUM_CHARTS_PER_ROW  (3)
 #define HBOXLAYOUTS_MAX     (3)
 #define TABWIDGETS_MAX      (9)
+
 #if (TABWIDGETS_MAX % HBOXLAYOUTS_MAX != 0)
 #error "TABWIDGETS_MAX must be divisible by HBOXLAYOUTS_MAX"
 #else
 #define VBOXLAYOUT_ROWS     (TABWIDGETS_MAX / HBOXLAYOUTS_MAX)
+#endif
+
+#if (TABWIDGETS_MAX > 9)
+#error "Define more on_signalTabWidget_tabCloseRequested functions to add more QTabWidgets!"
 #endif
 
 namespace Ui
@@ -66,6 +71,16 @@ private slots:
     void on_signalPeriodicReadTimer_timeout();
     void on_signalNewChartOkButton_released();
     void on_signalNewChartCancelButton_released();
+    void on_signalTabWidget_tabCloseRequested_0(int index);
+    void on_signalTabWidget_tabCloseRequested_1(int index);
+    void on_signalTabWidget_tabCloseRequested_2(int index);
+    void on_signalTabWidget_tabCloseRequested_3(int index);
+    void on_signalTabWidget_tabCloseRequested_4(int index);
+    void on_signalTabWidget_tabCloseRequested_5(int index);
+    void on_signalTabWidget_tabCloseRequested_6(int index);
+    void on_signalTabWidget_tabCloseRequested_7(int index);
+    void on_signalTabWidget_tabCloseRequested_8(int index);
+    void on_signalTabWidget_tabCloseRequested(int index, QTabWidget *tabWidget);
 
 private:
     Ui::MainWindow *ui;
