@@ -2,14 +2,11 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QChart>
-#include <QChartView>
-#include <QValueAxis>
-#include <QLineSeries>
 #include <QHBoxLayout>
 #include <QDialog>
 
 #include "productionanalyzer.h"
+#include "productiongraph.h"
 
 #define NUM_CHARTS_PER_ROW  (3)
 #define HBOXLAYOUTS_MAX     (3)
@@ -35,27 +32,6 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    typedef struct
-    {
-        QtCharts::QLineSeries *lineSeries;
-        int numDataToAvg;
-    } ProductionAnalyzerSeries;
-
-    typedef struct
-    {
-        QtCharts::QChart *chart;
-        QtCharts::QChartView *chartView;
-        QtCharts::QValueAxis *timestampAxisX;
-        QtCharts::QValueAxis *timestampAxisY;
-        QtCharts::QLineSeries *mainLineSeries;
-        QVector<ProductionAnalyzerSeries> productionAnalyzerSeries;
-        Product product;
-        qreal x;
-        qreal minValue;
-        qreal maxValue;
-        qreal prevValue;
-        bool firstTime;
-    } ProductionAnalyzerGraph;
 
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();

@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 
 #include "productionanalyzer.h"
+#include "productiongraph.h"
 
 #include <QDebug>
 #include <QFileDialog>
@@ -298,6 +299,7 @@ void MainWindow::on_signalTabWidget_tabCloseRequested(int index, QTabWidget *tab
         tabWidget->hide();
     }
 }
+
 /*************************************************************************
  * MainWindow::createChart
  *************************************************************************/
