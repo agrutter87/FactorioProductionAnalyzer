@@ -29,13 +29,15 @@ SOURCES += \
         mainwindow.cpp \
     productiondata.cpp \
     product.cpp \
-    productionanalyzer.cpp
+    productionanalyzer.cpp \
+    productiongraph.cpp
 
 HEADERS += \
         mainwindow.h \
     productiondata.h \
     product.h \
-    productionanalyzer.h
+    productionanalyzer.h \
+    productiongraph.h
 
 FORMS += \
         mainwindow.ui
