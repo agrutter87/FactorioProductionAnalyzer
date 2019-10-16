@@ -305,17 +305,17 @@ void MainWindow::on_signalTabWidget_tabCloseRequested(int index, QTabWidget *tab
  *************************************************************************/
 void MainWindow::createChart(const QString &name, QTabWidget *tabWidget, Product::ProductType productType)
 {
-    /* Create ProductionAnalyzerGraph */
-    ProductionAnalyzerGraph productionAnalyzerGraph;
+    /* Create ProductionGraph */
+    ProductionGraph productionGraph;
     QString tabNameProductType;
     bool alreadyCreated = false;
 
-    for(int i = 0; i < mProductionAnalyzerGraphs.count(); i++)
+    for(int i = 0; i < mProductionGraphs.count(); i++)
     {
-        if(mProductionAnalyzerGraphs[i].product.getName() == name && mProductionAnalyzerGraphs[i].product.getProductType() == productType)
+        if(mProductionGraphs[i].product.getName() == name && mProductionGraphs[i].product.getProductType() == productType)
         {
             qDebug() << "Chart already created, reopening in new tab";
-            productionAnalyzerGraph = mProductionAnalyzerGraphs[i];
+            productionGraph = mProductionGraphs[i];
             alreadyCreated = true;
             break;
         }
@@ -323,68 +323,68 @@ void MainWindow::createChart(const QString &name, QTabWidget *tabWidget, Product
 
     if(!alreadyCreated)
     {
-        /* Initialize ProductionAnalyzerGraph */
-        productionAnalyzerGraph.product.setName(name);
-        productionAnalyzerGraph.product.setProductType(productType);
-        productionAnalyzerGraph.x = 0;
-        productionAnalyzerGraph.minValue = 999999999;
-        productionAnalyzerGraph.maxValue = 0;
-        productionAnalyzerGraph.prevValue = 0;
-        productionAnalyzerGraph.firstTime = true;
+        /* Initialize ProductionGraph */
+        productionGraph.product.setName(name);
+        productionGraph.product.setProductType(productType);
+        productionGraph.x = 0;
+        productionGraph.minValue = 999999999;
+        productionGraph.maxValue = 0;
+        productionGraph.prevValue = 0;
+        productionGraph.firstTime = true;
 
         /* Create QChart */
-        productionAnalyzerGraph.chart = new QtCharts::QChart();
+        productionGraph.chart = new QtCharts::QChart();
 
         /* Create QChartView */
-        productionAnalyzerGraph.chartView = new QtCharts::QChartView(productionAnalyzerGraph.chart, ui->centralWidget);
+        productionGraph.chartView = new QtCharts::QChartView(productionGraph.chart, ui->centralWidget);
 
         /* Create QAxes */
-        productionAnalyzerGraph.timestampAxisX = new QtCharts::QValueAxis;
-        productionAnalyzerGraph.timestampAxisY = new QtCharts::QValueAxis;
+        productionGraph.timestampAxisX = new QtCharts::QValueAxis;
+        productionGraph.timestampAxisY = new QtCharts::QValueAxis;
 
         /* Create QLineSeries' */
-        productionAnalyzerGraph.mainLineSeries = new QtCharts::QLineSeries();
+        productionGraph.mainLineSeries = new QtCharts::QLineSeries();
 
         ProductionAnalyzerSeries productionAnalyzerSeries;
         productionAnalyzerSeries.lineSeries = new QtCharts::QLineSeries();
         productionAnalyzerSeries.numDataToAvg = 10;
-        productionAnalyzerGraph.productionAnalyzerSeries.append(productionAnalyzerSeries);
+        productionGraph.productionAnalyzerSeries.append(productionAnalyzerSeries);
 
         productionAnalyzerSeries.lineSeries = new QtCharts::QLineSeries();
         productionAnalyzerSeries.numDataToAvg = 15;
-        productionAnalyzerGraph.productionAnalyzerSeries.append(productionAnalyzerSeries);
+        productionGraph.productionAnalyzerSeries.append(productionAnalyzerSeries);
 
         /* Add QLineSeries' to QChart */
-        productionAnalyzerGraph.chart->addSeries(productionAnalyzerGraph.mainLineSeries);
-        for(int i = 0; i < productionAnalyzerGraph.productionAnalyzerSeries.count(); i++)
+        productionGraph.chart->addSeries(productionGraph.mainLineSeries);
+        for(int i = 0; i < productionGraph.productionAnalyzerSeries.count(); i++)
         {
-            productionAnalyzerGraph.chart->addSeries(productionAnalyzerGraph.productionAnalyzerSeries[i].lineSeries);
+            productionGraph.chart->addSeries(productionGraph.productionAnalyzerSeries[i].lineSeries);
         }
 
         /* Configure QChart */
-        productionAnalyzerGraph.chart->setTitle(name);
-        //productionAnalyzerGraph.chart->legend()->hide();
+        productionGraph.chart->setTitle(name);
+        //productionGraph.chart->legend()->hide();
 
         /* Add QAxes to QChart */
-        productionAnalyzerGraph.chart->addAxis(productionAnalyzerGraph.timestampAxisX, Qt::AlignBottom);
-        productionAnalyzerGraph.chart->addAxis(productionAnalyzerGraph.timestampAxisY, Qt::AlignLeft);
+        productionGraph.chart->addAxis(productionGraph.timestampAxisX, Qt::AlignBottom);
+        productionGraph.chart->addAxis(productionGraph.timestampAxisY, Qt::AlignLeft);
 
         /* Attach QLineSeries' to QAxes */
-        productionAnalyzerGraph.mainLineSeries->attachAxis(productionAnalyzerGraph.timestampAxisY);
-        productionAnalyzerGraph.mainLineSeries->attachAxis(productionAnalyzerGraph.timestampAxisX);
-        productionAnalyzerGraph.mainLineSeries->setName(name);
-        for(int i = 0; i < productionAnalyzerGraph.productionAnalyzerSeries.count(); i++)
+        productionGraph.mainLineSeries->attachAxis(productionGraph.timestampAxisY);
+        productionGraph.mainLineSeries->attachAxis(productionGraph.timestampAxisX);
+        productionGraph.mainLineSeries->setName(name);
+        for(int i = 0; i < productionGraph.productionAnalyzerSeries.count(); i++)
         {
-            productionAnalyzerGraph.productionAnalyzerSeries[i].lineSeries->attachAxis(productionAnalyzerGraph.timestampAxisY);
-            productionAnalyzerGraph.productionAnalyzerSeries[i].lineSeries->attachAxis(productionAnalyzerGraph.timestampAxisX);
-            productionAnalyzerGraph.productionAnalyzerSeries[i].lineSeries->setName(name+"-avg-over-"+QString::number(productionAnalyzerGraph.productionAnalyzerSeries[i].numDataToAvg));
+            productionGraph.productionAnalyzerSeries[i].lineSeries->attachAxis(productionGraph.timestampAxisY);
+            productionGraph.productionAnalyzerSeries[i].lineSeries->attachAxis(productionGraph.timestampAxisX);
+            productionGraph.productionAnalyzerSeries[i].lineSeries->setName(name+"-avg-over-"+QString::number(productionGraph.productionAnalyzerSeries[i].numDataToAvg));
         }
 
         /* Configure QChartView */
-        productionAnalyzerGraph.chartView->setRenderHint(QPainter::Antialiasing);
+        productionGraph.chartView->setRenderHint(QPainter::Antialiasing);
     }
 
-    switch(productionAnalyzerGraph.product.getProductType())
+    switch(productionGraph.product.getProductType())
     {
     case Product::Input:
         tabNameProductType = "-produced";
@@ -395,13 +395,13 @@ void MainWindow::createChart(const QString &name, QTabWidget *tabWidget, Product
     }
 
     /* Add a new tab to the QTabView where this will be placed */
-    tabWidget->addTab(productionAnalyzerGraph.chartView, name+tabNameProductType);
+    tabWidget->addTab(productionGraph.chartView, name+tabNameProductType);
     tabWidget->show();
 
     if(!alreadyCreated)
     {
         /* Add now fully configured ProductionAnalyzerGraphs to QVector */
-        mProductionAnalyzerGraphs.append(productionAnalyzerGraph);
+        mProductionGraphs.append(productionGraph);
     }
 }
 
@@ -422,10 +422,10 @@ void MainWindow::updateCharts()
     newOutputs = mProductionAnalyzer.getProductionData().last().getOutputs();
 
     /* Loop through and update each graph */
-    for(int i = 0; i < mProductionAnalyzerGraphs.size(); i++)
+    for(int i = 0; i < mProductionGraphs.size(); i++)
     {
         QVector<Product> products;
-        switch(mProductionAnalyzerGraphs[i].product.getProductType())
+        switch(mProductionGraphs[i].product.getProductType())
         {
             case Product::Input:
                 products = newInputs;
@@ -440,66 +440,66 @@ void MainWindow::updateCharts()
         foreach (const Product &product, products)
         {
             /* If we find the data meant for this graph... */
-            if(product.getName() == mProductionAnalyzerGraphs[i].product.getName())
+            if(product.getName() == mProductionGraphs[i].product.getName())
             {
                 /* Get the value */
                 curValue = product.getValue();
 
                 /* If this is the first data point read from the file... */
-                if(mProductionAnalyzerGraphs[i].firstTime)
+                if(mProductionGraphs[i].firstTime)
                 {
                     /* Set the outValue (a change between readings) to 0 to avoid huge value from first reading of file */
                     outValue = 0;
 
-                    mProductionAnalyzerGraphs[i].firstTime = false;
+                    mProductionGraphs[i].firstTime = false;
                 }
                 else
                 {
                     /* Calculate the change from the previous count to now */
-                    outValue = curValue - mProductionAnalyzerGraphs[i].prevValue;
+                    outValue = curValue - mProductionGraphs[i].prevValue;
                 }
 
                 /* Set the preValue to use for calculating the change on the next data reading */
-                mProductionAnalyzerGraphs[i].prevValue = curValue;
+                mProductionGraphs[i].prevValue = curValue;
 
                 /* Expand the scale of the graph downward to fit the data if necessary */
-                if(outValue < mProductionAnalyzerGraphs[i].minValue)
+                if(outValue < mProductionGraphs[i].minValue)
                 {
-                    mProductionAnalyzerGraphs[i].minValue = outValue;
+                    mProductionGraphs[i].minValue = outValue;
                 }
 
                 /* Expand the scale of the graph upward to fit the data if necessary */
-                if(outValue > mProductionAnalyzerGraphs[i].maxValue)
+                if(outValue > mProductionGraphs[i].maxValue)
                 {
-                    mProductionAnalyzerGraphs[i].maxValue = outValue;
+                    mProductionGraphs[i].maxValue = outValue;
                 }
 
                 /* Append the data to the main lineSeries */
-                mProductionAnalyzerGraphs[i].mainLineSeries->append(mProductionAnalyzerGraphs[i].x, outValue);
-                if(mProductionAnalyzerGraphs[i].mainLineSeries->count() > PRODUCTION_DATA_BUFFER_SIZE_OBJECTS_MAX)
+                mProductionGraphs[i].mainLineSeries->append(mProductionGraphs[i].x, outValue);
+                if(mProductionGraphs[i].mainLineSeries->count() > PRODUCTION_DATA_BUFFER_SIZE_OBJECTS_MAX)
                 {
-                    mProductionAnalyzerGraphs[i].mainLineSeries->removePoints(mProductionAnalyzerGraphs[i].mainLineSeries->count() - PRODUCTION_DATA_BUFFER_SIZE_OBJECTS_MAX, 1);
+                    mProductionGraphs[i].mainLineSeries->removePoints(mProductionGraphs[i].mainLineSeries->count() - PRODUCTION_DATA_BUFFER_SIZE_OBJECTS_MAX, 1);
                 }
 
                 /* For each series on this ith graph */
-                for(int j = 0; j < mProductionAnalyzerGraphs[i].productionAnalyzerSeries.count(); j++)
+                for(int j = 0; j < mProductionGraphs[i].productionAnalyzerSeries.count(); j++)
                 {
                     /* Average most current values in line series to smooth things out */
-                    int index_max = mProductionAnalyzerGraphs[i].mainLineSeries->count() - 1;
-                    int avg_count = mProductionAnalyzerGraphs[i].productionAnalyzerSeries[j].numDataToAvg;
+                    int index_max = mProductionGraphs[i].mainLineSeries->count() - 1;
+                    int avg_count = mProductionGraphs[i].productionAnalyzerSeries[j].numDataToAvg;
                     if(index_max > avg_count)
                     {
                         outValue = 0;
                         for(int k = index_max; k > index_max - avg_count; k--)
                         {
-                            outValue += mProductionAnalyzerGraphs[i].mainLineSeries->at(k).y();
+                            outValue += mProductionGraphs[i].mainLineSeries->at(k).y();
                         }
                         outValue /= avg_count;
 
-                        mProductionAnalyzerGraphs[i].productionAnalyzerSeries[j].lineSeries->append(mProductionAnalyzerGraphs[i].x, outValue);
-                        if(mProductionAnalyzerGraphs[i].productionAnalyzerSeries[j].lineSeries->count() > PRODUCTION_DATA_BUFFER_SIZE_OBJECTS_MAX)
+                        mProductionGraphs[i].productionAnalyzerSeries[j].lineSeries->append(mProductionGraphs[i].x, outValue);
+                        if(mProductionGraphs[i].productionAnalyzerSeries[j].lineSeries->count() > PRODUCTION_DATA_BUFFER_SIZE_OBJECTS_MAX)
                         {
-                            mProductionAnalyzerGraphs[i].productionAnalyzerSeries[j].lineSeries->removePoints(mProductionAnalyzerGraphs[i].productionAnalyzerSeries[j].lineSeries->count() - PRODUCTION_DATA_BUFFER_SIZE_OBJECTS_MAX, 1);
+                            mProductionGraphs[i].productionAnalyzerSeries[j].lineSeries->removePoints(mProductionGraphs[i].productionAnalyzerSeries[j].lineSeries->count() - PRODUCTION_DATA_BUFFER_SIZE_OBJECTS_MAX, 1);
                         }
                     }
                 }
@@ -507,23 +507,23 @@ void MainWindow::updateCharts()
         }
 
         /* Set min/max values for axes using the values saved above */
-        mProductionAnalyzerGraphs[i].timestampAxisY->setMax(mProductionAnalyzerGraphs[i].maxValue);
-        mProductionAnalyzerGraphs[i].timestampAxisY->setMin(mProductionAnalyzerGraphs[i].minValue);
+        mProductionGraphs[i].timestampAxisY->setMax(mProductionGraphs[i].maxValue);
+        mProductionGraphs[i].timestampAxisY->setMin(mProductionGraphs[i].minValue);
 
         /* Set max x if the x value is larger than the current max */
-        if(mProductionAnalyzerGraphs[i].x > mProductionAnalyzerGraphs[i].timestampAxisX->max())
+        if(mProductionGraphs[i].x > mProductionGraphs[i].timestampAxisX->max())
         {
-            mProductionAnalyzerGraphs[i].timestampAxisX->setMax(mProductionAnalyzerGraphs[i].x);
+            mProductionGraphs[i].timestampAxisX->setMax(mProductionGraphs[i].x);
 
             /* Set the min higher to keep it "scrolling" once it fills the time span */
-            if(mProductionAnalyzerGraphs[i].x >= PRODUCTION_DATA_BUFFER_SIZE_OBJECTS_MAX)
+            if(mProductionGraphs[i].x >= PRODUCTION_DATA_BUFFER_SIZE_OBJECTS_MAX)
             {
-                mProductionAnalyzerGraphs[i].timestampAxisX->setMin(mProductionAnalyzerGraphs[i].x - PRODUCTION_DATA_BUFFER_SIZE_OBJECTS_MAX + 1);
+                mProductionGraphs[i].timestampAxisX->setMin(mProductionGraphs[i].x - PRODUCTION_DATA_BUFFER_SIZE_OBJECTS_MAX + 1);
             }
         }
 
         /* Increment x for the next go around */
-        mProductionAnalyzerGraphs[i].x = mProductionAnalyzerGraphs[i].x + 1;
+        mProductionGraphs[i].x = mProductionGraphs[i].x + 1;
     }
 }
 

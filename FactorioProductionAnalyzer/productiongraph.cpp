@@ -1,6 +1,6 @@
 #include "productiongraph.h"
 
-ProductionAnalyzerGraph::ProductionAnalyzerGraph()
+ProductionGraph::ProductionGraph()
 {
 
 }

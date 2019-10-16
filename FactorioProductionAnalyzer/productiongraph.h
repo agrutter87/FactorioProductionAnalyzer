@@ -15,12 +15,12 @@ typedef struct
     int                             numDataToAvg;
 } ProductionAnalyzerSeries;
 
-class ProductionAnalyzerGraph
+class ProductionGraph
 {
     Q_GADGET
 
 public:
-    ProductionAnalyzerGraph();
+    ProductionGraph();
 
     QtCharts::QChart                    *chart;
     QtCharts::QChartView                *chartView;
