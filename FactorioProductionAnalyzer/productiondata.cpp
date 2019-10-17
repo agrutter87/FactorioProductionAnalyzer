@@ -83,6 +83,7 @@ void ProductionData::jsonRead(const QJsonObject &json)
             /* Initialize a local product with the data of the JSON member */
             Product product;
             product.jsonRead(inputObject);
+            product.setProductType(Product::ProductType::Input);
 
             /* Append the local product to the mInputs array */
             mInputs.append(product);
@@ -110,6 +111,7 @@ void ProductionData::jsonRead(const QJsonObject &json)
             /* Initialize a local product with the data of the JSON member */
             Product product;
             product.jsonRead(outputObject);
+            product.setProductType(Product::ProductType::Output);
 
             /* Append the local product to the mOutputs array */
             mOutputs.append(product);

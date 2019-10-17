@@ -35,6 +35,7 @@ public:
 
     void                                update();
     Product                             getProduct() const;
+    void                                setProduct(Product product);
     QtCharts::QChartView                *getChartView() const;
 
 private:

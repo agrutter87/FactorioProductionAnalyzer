@@ -187,6 +187,17 @@ Product ProductionGraph::getProduct() const
 }
 
 /*************************************************************************
+ * ProductionGraph::setProduct
+ *************************************************************************/
+void ProductionGraph::setProduct(Product product)
+{
+#if DEBUG_PRODUCTION_GRAPH
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
+    mProduct = product;
+}
+
+/*************************************************************************
  * ProductionGraph::getChartView
  *************************************************************************/
 QtCharts::QChartView *ProductionGraph::getChartView() const

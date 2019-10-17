@@ -334,7 +334,7 @@ void MainWindow::tabWidget_tabCloseRequested(int index, QTabWidget *tabWidget)
  *************************************************************************/
 void MainWindow::createChart(const QString &name, QTabWidget *tabWidget, Product::ProductType productType)
 {
-    ProductionGraph *productionGraph;
+    ProductionGraph *productionGraph = nullptr;
     QString tabNameProductType;
     bool alreadyCreated = false;
 
@@ -354,24 +354,27 @@ void MainWindow::createChart(const QString &name, QTabWidget *tabWidget, Product
         productionGraph = new ProductionGraph(productType, ui->centralWidget, name);
     }
 
-    switch(productionGraph->getProduct().getProductType())
+    if(productionGraph != nullptr)
     {
-    case Product::Input:
-        tabNameProductType = "-produced";
-        break;
-    case Product::Output:
-        tabNameProductType = "-consumed";
-        break;
-    }
+        switch(productionGraph->getProduct().getProductType())
+        {
+        case Product::Input:
+            tabNameProductType = "-produced";
+            break;
+        case Product::Output:
+            tabNameProductType = "-consumed";
+            break;
+        }
 
-    /* Add a new tab to the QTabView where this will be placed */
-    tabWidget->addTab(productionGraph->getChartView(), name+tabNameProductType);
-    tabWidget->show();
+        /* Add a new tab to the QTabView where this will be placed */
+        tabWidget->addTab(productionGraph->getChartView(), name+tabNameProductType);
+        tabWidget->show();
 
-    if(!alreadyCreated)
-    {
-        /* Add now fully configured ProductionAnalyzerGraphs to QVector */
-        mProductionGraphs.append(productionGraph);
+        if(!alreadyCreated)
+        {
+            /* Add now fully configured ProductionAnalyzerGraphs to QVector */
+            mProductionGraphs.append(productionGraph);
+        }
     }
 }
 
@@ -393,6 +396,8 @@ void MainWindow::updateCharts()
     for(int i = 0; i < mProductionGraphs.size(); i++)
     {
         QVector<Product> products;
+
+        /* Determine the graph's product's productType (input vs output) */
         switch(mProductionGraphs[i]->getProduct().getProductType())
         {
             case Product::Input:
@@ -410,6 +415,8 @@ void MainWindow::updateCharts()
             /* If we find the data meant for this graph... */
             if(product.getName() == mProductionGraphs[i]->getProduct().getName())
             {
+                /* If we find the data then we update the graph */
+                mProductionGraphs[i]->setProduct(product);
                 mProductionGraphs[i]->update();
             }
         }
