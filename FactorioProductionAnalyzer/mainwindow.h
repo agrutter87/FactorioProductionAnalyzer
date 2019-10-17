@@ -62,7 +62,7 @@ private:
     Ui::MainWindow *ui;
     ProductionAnalyzer mProductionAnalyzer;
     QTimer *periodicReadTimer;
-    QVector<ProductionGraph> mProductionGraphs;
+    QVector<ProductionGraph *> mProductionGraphs;
 
     QTabWidget *mTabWidgets[TABWIDGETS_MAX];
     QHBoxLayout *mHBoxLayouts[HBOXLAYOUTS_MAX];

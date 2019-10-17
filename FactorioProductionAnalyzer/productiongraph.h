@@ -9,31 +9,40 @@
 
 #include "product.h"
 
-typedef struct
-{
-    QtCharts::QLineSeries           *lineSeries;
-    int                             numDataToAvg;
-} ProductionAnalyzerSeries;
 
 class ProductionGraph
 {
     Q_GADGET
 
 public:
-    ProductionGraph();
+    typedef struct
+    {
+        QtCharts::QLineSeries           *lineSeries;
+        int                             numDataToAvg;
+    } ProductionAnalyzerSeries;
 
-    QtCharts::QChart                    *chart;
-    QtCharts::QChartView                *chartView;
-    QtCharts::QValueAxis                *timestampAxisX;
-    QtCharts::QValueAxis                *timestampAxisY;
-    QtCharts::QLineSeries               *mainLineSeries;
-    QVector<ProductionAnalyzerSeries>   productionAnalyzerSeries;
-    Product                             product;
-    qreal                               x;
-    qreal                               minValue;
-    qreal                               maxValue;
-    qreal                               prevValue;
-    bool                                firstTime;
+    ProductionGraph(Product::ProductType productType,
+                    QWidget *parent = nullptr,
+                    QString name = "Unnamed");
+    ~ProductionGraph();
+
+    void                                update();
+    Product                             getProduct() const;
+    QtCharts::QChartView                *getChartView() const;
+
+private:
+    QtCharts::QChart                    *mChart;
+    QtCharts::QChartView                *mChartView;
+    QtCharts::QLineSeries               *mMainLineSeries;
+    QVector<ProductionAnalyzerSeries>   mProductionAnalyzerSeries;
+    QtCharts::QValueAxis                *mTimestampAxisX;
+    QtCharts::QValueAxis                *mTimestampAxisY;
+    Product                             mProduct;
+    qreal                               mX;
+    qreal                               mMinValue;
+    qreal                               mMaxValue;
+    qreal                               mPrevValue;
+    bool                                mFirstTime;
 };
 
 #endif // PRODUCTIONGRAPH_H
