@@ -19,7 +19,7 @@
 #endif
 
 #if (TABWIDGETS_MAX > 9)
-#error "Define more on_signalTabWidget_tabCloseRequested functions to add more QTabWidgets!"
+#error "Define more tabWidget_tabCloseRequested functions to add more QTabWidgets!"
 #endif
 
 namespace Ui
@@ -44,19 +44,19 @@ private slots:
     void on_actionOpen_triggered();
     void on_actionNewChart_triggered();
 
-    void on_signalPeriodicReadTimer_timeout();
-    void on_signalNewChartOkButton_released();
-    void on_signalNewChartCancelButton_released();
-    void on_signalTabWidget_tabCloseRequested_0(int index);
-    void on_signalTabWidget_tabCloseRequested_1(int index);
-    void on_signalTabWidget_tabCloseRequested_2(int index);
-    void on_signalTabWidget_tabCloseRequested_3(int index);
-    void on_signalTabWidget_tabCloseRequested_4(int index);
-    void on_signalTabWidget_tabCloseRequested_5(int index);
-    void on_signalTabWidget_tabCloseRequested_6(int index);
-    void on_signalTabWidget_tabCloseRequested_7(int index);
-    void on_signalTabWidget_tabCloseRequested_8(int index);
-    void on_signalTabWidget_tabCloseRequested(int index, QTabWidget *tabWidget);
+    void periodicReadTimer_timeout();
+    void newChartOkButton_released();
+    void newChartCancelButton_released();
+    void tabWidget_tabCloseRequested_0(int index);
+    void tabWidget_tabCloseRequested_1(int index);
+    void tabWidget_tabCloseRequested_2(int index);
+    void tabWidget_tabCloseRequested_3(int index);
+    void tabWidget_tabCloseRequested_4(int index);
+    void tabWidget_tabCloseRequested_5(int index);
+    void tabWidget_tabCloseRequested_6(int index);
+    void tabWidget_tabCloseRequested_7(int index);
+    void tabWidget_tabCloseRequested_8(int index);
+    void tabWidget_tabCloseRequested(int index, QTabWidget *tabWidget);
 
 private:
     Ui::MainWindow *ui;

@@ -21,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     /* Create a timer to use for periodic reading of the Factorio mod output data file */
     periodicReadTimer = new QTimer(this);
-    connect(periodicReadTimer, SIGNAL(timeout()), this, SLOT(on_signalPeriodicReadTimer_timeout()));
+    connect(periodicReadTimer, SIGNAL(timeout()), this, SLOT(periodicReadTimer_timeout()));
 
     /* Create HBOXLAYOUT_MAX number of QHBoxLayout rows */
     for(int i = 0; i < HBOXLAYOUTS_MAX; i++)
@@ -45,39 +45,39 @@ MainWindow::MainWindow(QWidget *parent)
         switch(i)
         {
         case 0:
-            connect(mTabWidgets[i], SIGNAL(tabCloseRequested(int)), this, SLOT(on_signalTabWidget_tabCloseRequested_0(int)));
+            connect(mTabWidgets[i], SIGNAL(tabCloseRequested(int)), this, SLOT(tabWidget_tabCloseRequested_0(int)));
             break;
 
         case 1:
-            connect(mTabWidgets[i], SIGNAL(tabCloseRequested(int)), this, SLOT(on_signalTabWidget_tabCloseRequested_1(int)));
+            connect(mTabWidgets[i], SIGNAL(tabCloseRequested(int)), this, SLOT(tabWidget_tabCloseRequested_1(int)));
             break;
 
         case 2:
-            connect(mTabWidgets[i], SIGNAL(tabCloseRequested(int)), this, SLOT(on_signalTabWidget_tabCloseRequested_2(int)));
+            connect(mTabWidgets[i], SIGNAL(tabCloseRequested(int)), this, SLOT(tabWidget_tabCloseRequested_2(int)));
             break;
 
         case 3:
-            connect(mTabWidgets[i], SIGNAL(tabCloseRequested(int)), this, SLOT(on_signalTabWidget_tabCloseRequested_3(int)));
+            connect(mTabWidgets[i], SIGNAL(tabCloseRequested(int)), this, SLOT(tabWidget_tabCloseRequested_3(int)));
             break;
 
         case 4:
-            connect(mTabWidgets[i], SIGNAL(tabCloseRequested(int)), this, SLOT(on_signalTabWidget_tabCloseRequested_4(int)));
+            connect(mTabWidgets[i], SIGNAL(tabCloseRequested(int)), this, SLOT(tabWidget_tabCloseRequested_4(int)));
             break;
 
         case 5:
-            connect(mTabWidgets[i], SIGNAL(tabCloseRequested(int)), this, SLOT(on_signalTabWidget_tabCloseRequested_5(int)));
+            connect(mTabWidgets[i], SIGNAL(tabCloseRequested(int)), this, SLOT(tabWidget_tabCloseRequested_5(int)));
             break;
 
         case 6:
-            connect(mTabWidgets[i], SIGNAL(tabCloseRequested(int)), this, SLOT(on_signalTabWidget_tabCloseRequested_6(int)));
+            connect(mTabWidgets[i], SIGNAL(tabCloseRequested(int)), this, SLOT(tabWidget_tabCloseRequested_6(int)));
             break;
 
         case 7:
-            connect(mTabWidgets[i], SIGNAL(tabCloseRequested(int)), this, SLOT(on_signalTabWidget_tabCloseRequested_7(int)));
+            connect(mTabWidgets[i], SIGNAL(tabCloseRequested(int)), this, SLOT(tabWidget_tabCloseRequested_7(int)));
             break;
 
         case 8:
-            connect(mTabWidgets[i], SIGNAL(tabCloseRequested(int)), this, SLOT(on_signalTabWidget_tabCloseRequested_8(int)));
+            connect(mTabWidgets[i], SIGNAL(tabCloseRequested(int)), this, SLOT(tabWidget_tabCloseRequested_8(int)));
             break;
         default:
             break;
@@ -180,10 +180,10 @@ void MainWindow::on_actionNewChart_triggered()
     }
 
     QPushButton *okButton = new QPushButton("Ok");
-    connect(okButton, SIGNAL(released()), this, SLOT(on_signalNewChartOkButton_released()));
+    connect(okButton, SIGNAL(released()), this, SLOT(newChartOkButton_released()));
 
     QPushButton *cancelButton = new QPushButton("Cancel");
-    connect(cancelButton, SIGNAL(released()), this, SLOT(on_signalNewChartCancelButton_released()));
+    connect(cancelButton, SIGNAL(released()), this, SLOT(newChartCancelButton_released()));
 
     horizontalLayout1->setAlignment(Qt::AlignCenter);
     horizontalLayout1->addWidget(itemNameLabel);
@@ -233,7 +233,7 @@ void MainWindow::on_actionNewChart_triggered()
 /*************************************************************************
  * SLOT ACTIONS
  *************************************************************************/
-void MainWindow::on_signalPeriodicReadTimer_timeout(void)
+void MainWindow::periodicReadTimer_timeout(void)
 {
     qDebug("MainWindow::periodicRead");
     mProductionAnalyzer.fileRead();
@@ -242,56 +242,56 @@ void MainWindow::on_signalPeriodicReadTimer_timeout(void)
     updateCharts();
 }
 
-void MainWindow::on_signalNewChartOkButton_released(void)
+void MainWindow::newChartOkButton_released(void)
 {
     mNewChartOkButton_released = true;
 
     mNewChartDialog->close();
 }
 
-void MainWindow::on_signalNewChartCancelButton_released(void)
+void MainWindow::newChartCancelButton_released(void)
 {
     mNewChartDialog->close();
 }
 
-void MainWindow::on_signalTabWidget_tabCloseRequested_0(int index)
+void MainWindow::tabWidget_tabCloseRequested_0(int index)
 {
-    on_signalTabWidget_tabCloseRequested(index, mTabWidgets[0]);
+    tabWidget_tabCloseRequested(index, mTabWidgets[0]);
 }
-void MainWindow::on_signalTabWidget_tabCloseRequested_1(int index)
+void MainWindow::tabWidget_tabCloseRequested_1(int index)
 {
-    on_signalTabWidget_tabCloseRequested(index, mTabWidgets[1]);
+    tabWidget_tabCloseRequested(index, mTabWidgets[1]);
 }
-void MainWindow::on_signalTabWidget_tabCloseRequested_2(int index)
+void MainWindow::tabWidget_tabCloseRequested_2(int index)
 {
-    on_signalTabWidget_tabCloseRequested(index, mTabWidgets[2]);
+    tabWidget_tabCloseRequested(index, mTabWidgets[2]);
 }
-void MainWindow::on_signalTabWidget_tabCloseRequested_3(int index)
+void MainWindow::tabWidget_tabCloseRequested_3(int index)
 {
-    on_signalTabWidget_tabCloseRequested(index, mTabWidgets[3]);
+    tabWidget_tabCloseRequested(index, mTabWidgets[3]);
 }
-void MainWindow::on_signalTabWidget_tabCloseRequested_4(int index)
+void MainWindow::tabWidget_tabCloseRequested_4(int index)
 {
-    on_signalTabWidget_tabCloseRequested(index, mTabWidgets[4]);
+    tabWidget_tabCloseRequested(index, mTabWidgets[4]);
 }
-void MainWindow::on_signalTabWidget_tabCloseRequested_5(int index)
+void MainWindow::tabWidget_tabCloseRequested_5(int index)
 {
-    on_signalTabWidget_tabCloseRequested(index, mTabWidgets[5]);
+    tabWidget_tabCloseRequested(index, mTabWidgets[5]);
 }
-void MainWindow::on_signalTabWidget_tabCloseRequested_6(int index)
+void MainWindow::tabWidget_tabCloseRequested_6(int index)
 {
-    on_signalTabWidget_tabCloseRequested(index, mTabWidgets[6]);
+    tabWidget_tabCloseRequested(index, mTabWidgets[6]);
 }
-void MainWindow::on_signalTabWidget_tabCloseRequested_7(int index)
+void MainWindow::tabWidget_tabCloseRequested_7(int index)
 {
-    on_signalTabWidget_tabCloseRequested(index, mTabWidgets[7]);
+    tabWidget_tabCloseRequested(index, mTabWidgets[7]);
 }
-void MainWindow::on_signalTabWidget_tabCloseRequested_8(int index)
+void MainWindow::tabWidget_tabCloseRequested_8(int index)
 {
-    on_signalTabWidget_tabCloseRequested(index, mTabWidgets[8]);
+    tabWidget_tabCloseRequested(index, mTabWidgets[8]);
 }
 
-void MainWindow::on_signalTabWidget_tabCloseRequested(int index, QTabWidget *tabWidget)
+void MainWindow::tabWidget_tabCloseRequested(int index, QTabWidget *tabWidget)
 {
     tabWidget->removeTab(index);
     if(tabWidget->currentIndex() == -1)
