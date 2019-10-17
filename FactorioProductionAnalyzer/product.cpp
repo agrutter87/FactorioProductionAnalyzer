@@ -2,41 +2,65 @@
 
 #include <QJsonArray>
 
+/*************************************************************************
+ * Product::Product
+ *************************************************************************/
 Product::Product()
 {
 
 }
 
+/*************************************************************************
+ * Product::getName
+ *************************************************************************/
 QString Product::getName() const
 {
     return mName;
 }
 
+/*************************************************************************
+ * Product::setName
+ *************************************************************************/
 void Product::setName(const QString &name)
 {
     mName = name;
 }
 
+/*************************************************************************
+ * Product::getValue
+ *************************************************************************/
 double Product::getValue() const
 {
     return mValue;
 }
 
+/*************************************************************************
+ * Product::setValue
+ *************************************************************************/
 void Product::setValue(double value)
 {
     mValue = value;
 }
 
+/*************************************************************************
+ * Product::getProductType
+ *************************************************************************/
 Product::ProductType Product::getProductType() const
 {
     return mProductType;
 }
 
+/*************************************************************************
+ * Product::setProductType
+ *************************************************************************/
 void Product::setProductType(ProductType productType)
 {
     mProductType = productType;
 }
 
+/*************************************************************************
+ * Product::jsonRead
+ *************************************************************************/
 void Product::jsonRead(const QJsonObject &json)
 {
     /* Find "name" section in JSON object and ensure it is set to a String */
@@ -54,6 +78,9 @@ void Product::jsonRead(const QJsonObject &json)
     }
  }
 
+/*************************************************************************
+ * Product::jsonWrite
+ *************************************************************************/
 void Product::jsonWrite(QJsonObject &json) const
 {
     /* Set the JSON data for "name" to mName */

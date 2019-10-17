@@ -1,5 +1,9 @@
 #include "productiongraph.h"
+#include "productionanalyzer.h"
 
+/*************************************************************************
+ * ProductionGraph::ProductionGraph
+ *************************************************************************/
 ProductionGraph::ProductionGraph(Product::ProductType productType, QWidget* parent, QString name)
 {
     /* Initialize ProductionGraph */
@@ -63,6 +67,9 @@ ProductionGraph::ProductionGraph(Product::ProductType productType, QWidget* pare
     mChartView->setRenderHint(QPainter::Antialiasing);
 }
 
+/*************************************************************************
+ * ProductionGraph::~ProductionGraph
+ *************************************************************************/
 ProductionGraph::~ProductionGraph()
 {
 #if DEBUG_PRODUCTION_GRAPH
@@ -72,6 +79,9 @@ ProductionGraph::~ProductionGraph()
     delete mChart;
 }
 
+/*************************************************************************
+ * ProductionGraph::update
+ *************************************************************************/
 void ProductionGraph::update()
 {
     qreal curValue = 0;
@@ -159,11 +169,17 @@ void ProductionGraph::update()
     mX = mX + 1;
 }
 
+/*************************************************************************
+ * ProductionGraph::getProduct
+ *************************************************************************/
 Product ProductionGraph::getProduct() const
 {
     return mProduct;
 }
 
+/*************************************************************************
+ * ProductionGraph::getChartView
+ *************************************************************************/
 QtCharts::QChartView *ProductionGraph::getChartView() const
 {
     return mChartView;

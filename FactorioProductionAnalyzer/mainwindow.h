@@ -8,6 +8,9 @@
 #include "productionanalyzer.h"
 #include "productiongraph.h"
 
+/*************************************************************************
+ * Defines
+ *************************************************************************/
 #define NUM_CHARTS_PER_ROW  (3)
 #define HBOXLAYOUTS_MAX     (3)
 #define TABWIDGETS_MAX      (9)
@@ -22,11 +25,17 @@
 #error "Define more tabWidget_tabCloseRequested functions to add more QTabWidgets!"
 #endif
 
+/*************************************************************************
+ * Ui Namespace
+ *************************************************************************/
 namespace Ui
 {
     class MainWindow;
 }
 
+/*************************************************************************
+ * MainWindow Class
+ *************************************************************************/
 class MainWindow : public QMainWindow
 {
     Q_OBJECT

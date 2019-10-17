@@ -2,36 +2,57 @@
 
 #include <QJsonArray>
 
+/*************************************************************************
+ * ProductionData::ProductionData
+ *************************************************************************/
 ProductionData::ProductionData()
 {
 
 }
 
+/*************************************************************************
+ * ProductionData::getTimestamp
+ *************************************************************************/
 int ProductionData::getTimestamp() const
 {
     return mTimestamp;
 }
 
+/*************************************************************************
+ * ProductionData::getInputs
+ *************************************************************************/
 QVector<Product> ProductionData::getInputs() const
 {
     return mInputs;
 }
 
+/*************************************************************************
+ * ProductionData::setInputs
+ *************************************************************************/
 void ProductionData::setInputs(const QVector<Product> &products)
 {
     mInputs = products;
 }
 
+/*************************************************************************
+ * ProductionData::getOutputs
+ *************************************************************************/
 QVector<Product> ProductionData::getOutputs() const
 {
     return mOutputs;
 }
 
+/*************************************************************************
+ * ProductionData::setOutputs
+ *************************************************************************/
 void ProductionData::setOutputs(const QVector<Product> &products)
 {
     mOutputs = products;
 }
 
+/*************************************************************************
+ * ProductionData::jsonRead
+ *************************************************************************/
 void ProductionData::jsonRead(const QJsonObject &json)
 {
     /* Find "timestamp" section in JSON object and ensure it is a number */
@@ -94,8 +115,11 @@ void ProductionData::jsonRead(const QJsonObject &json)
             mOutputs.append(product);
         }
     }
-  }
+}
 
+/*************************************************************************
+ * ProductionData::jsonWrite
+ *************************************************************************/
 void ProductionData::jsonWrite(QJsonObject &json) const
 {
     /* Create a local JSON array for "inputs" data */

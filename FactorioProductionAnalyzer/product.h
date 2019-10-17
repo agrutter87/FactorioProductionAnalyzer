@@ -4,6 +4,13 @@
 #include <QJsonObject>
 #include <QObject>
 
+/*************************************************************************
+ * Defines
+ *************************************************************************/
+
+/*************************************************************************
+ * Product Class
+ *************************************************************************/
 class Product
 {
     Q_GADGET
@@ -16,7 +23,6 @@ public:
     } ProductType;
 
     Product();
-    Product(const QString &name, int value);
 
     QString getName() const;
     void setName(const QString &name);
@@ -31,6 +37,7 @@ public:
     void jsonWrite(QJsonObject &json) const;
 
     void print(int indentation = 0) const;
+
 private:
     QString mName;
     double mValue;

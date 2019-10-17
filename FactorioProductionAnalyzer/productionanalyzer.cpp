@@ -3,27 +3,42 @@
 #include <QFile>
 #include <QJsonDocument>
 
+/*************************************************************************
+ * ProductionAnalyzer::ProductionAnalyzer
+ *************************************************************************/
 ProductionAnalyzer::ProductionAnalyzer()
 {
 
 }
 
+/*************************************************************************
+ * ProductionAnalyzer::getProductionData
+ *************************************************************************/
 QVector<ProductionData> ProductionAnalyzer::getProductionData() const
 {
     return mProductionData;
 }
 
+/*************************************************************************
+ * ProductionAnalyzer::setProductionData
+ *************************************************************************/
 void ProductionAnalyzer::setProductionData(const QVector<ProductionData> &productionData)
 {
     mProductionData = productionData;
 }
 
+/*************************************************************************
+ * ProductionAnalyzer::setFile
+ *************************************************************************/
 void ProductionAnalyzer::setFile(SaveFormat saveFormat, QString &fileName)
 {
     mFileFormat = saveFormat;
     mFileName = fileName;
 }
 
+/*************************************************************************
+ * ProductionAnalyzer::fileRead
+ *************************************************************************/
 bool ProductionAnalyzer::fileRead(void)
 {
     qDebug("ProductionAnalyzer::fileRead");
@@ -47,6 +62,9 @@ bool ProductionAnalyzer::fileRead(void)
     return true;
 }
 
+/*************************************************************************
+ * ProductionAnalyzer::fileWrite
+ *************************************************************************/
 bool ProductionAnalyzer::fileWrite(SaveFormat saveFormat, QString &fileName) const
 {
     QFile saveFile(fileName);
@@ -68,6 +86,9 @@ bool ProductionAnalyzer::fileWrite(SaveFormat saveFormat, QString &fileName) con
     return true;
 }
 
+/*************************************************************************
+ * ProductionAnalyzer::jsonRead
+ *************************************************************************/
 void ProductionAnalyzer::jsonRead(const QJsonObject &json)
 {
     ProductionData productionData;
@@ -85,6 +106,9 @@ void ProductionAnalyzer::jsonRead(const QJsonObject &json)
     }
 }
 
+/*************************************************************************
+ * ProductionAnalyzer::jsonWrite
+ *************************************************************************/
 void ProductionAnalyzer::jsonWrite(QJsonObject &json) const
 {
     QJsonObject productionObject;

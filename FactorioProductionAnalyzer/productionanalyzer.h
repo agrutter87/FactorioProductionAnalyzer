@@ -3,9 +3,15 @@
 
 #include "productiondata.h"
 
-#define PRODUCTION_DATA_BUFFER_SIZE_OBJECTS_MAX (1 * 60)
-#define PRODUCTION_DATA_READ_PERIOD_MS          (1000)
+/*************************************************************************
+ * Defines
+ *************************************************************************/
+#define PRODUCTION_DATA_BUFFER_SIZE_OBJECTS_MAX     (1 * 60)
+#define PRODUCTION_DATA_READ_PERIOD_MS              (1000)
 
+/*************************************************************************
+ * ProductionAnalyzer Class
+ *************************************************************************/
 class ProductionAnalyzer
 {
 public:

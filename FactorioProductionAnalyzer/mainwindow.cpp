@@ -13,6 +13,9 @@
 #include <QComboBox>
 #include <QPushButton>
 
+/*************************************************************************
+ * MainWindow::MainWindow
+ *************************************************************************/
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow)
 {
@@ -97,6 +100,9 @@ MainWindow::MainWindow(QWidget *parent)
     mNewChartOkButton_released = false;
 }
 
+/*************************************************************************
+ * MainWindow::~MainWindow
+ *************************************************************************/
 MainWindow::~MainWindow()
 {
     delete periodicReadTimer;
@@ -105,6 +111,9 @@ MainWindow::~MainWindow()
 
 /*************************************************************************
  * MENU ACTIONS
+ *************************************************************************/
+/*************************************************************************
+ * MainWindow::on_actionOpen_triggered
  *************************************************************************/
 void MainWindow::on_actionOpen_triggered()
 {
@@ -148,6 +157,9 @@ void MainWindow::on_actionOpen_triggered()
     }
 }
 
+/*************************************************************************
+ * MainWindow::on_actionNewChart_triggered
+ *************************************************************************/
 void MainWindow::on_actionNewChart_triggered()
 {
     mNewChartDialog = new QDialog();
@@ -233,6 +245,9 @@ void MainWindow::on_actionNewChart_triggered()
 /*************************************************************************
  * SLOT ACTIONS
  *************************************************************************/
+/*************************************************************************
+ * MainWindow::periodicReadTimer_timeout
+ *************************************************************************/
 void MainWindow::periodicReadTimer_timeout(void)
 {
     qDebug("MainWindow::periodicRead");
@@ -242,6 +257,9 @@ void MainWindow::periodicReadTimer_timeout(void)
     updateCharts();
 }
 
+/*************************************************************************
+ * MainWindow::newChartOkButton_released
+ *************************************************************************/
 void MainWindow::newChartOkButton_released(void)
 {
     mNewChartOkButton_released = true;
@@ -249,11 +267,17 @@ void MainWindow::newChartOkButton_released(void)
     mNewChartDialog->close();
 }
 
+/*************************************************************************
+ * MainWindow::newChartCancelButton_released
+ *************************************************************************/
 void MainWindow::newChartCancelButton_released(void)
 {
     mNewChartDialog->close();
 }
 
+/*************************************************************************
+ * MainWindow::tabWidget_tabCloseRequested_X
+ *************************************************************************/
 void MainWindow::tabWidget_tabCloseRequested_0(int index)
 {
     tabWidget_tabCloseRequested(index, mTabWidgets[0]);
@@ -291,6 +315,9 @@ void MainWindow::tabWidget_tabCloseRequested_8(int index)
     tabWidget_tabCloseRequested(index, mTabWidgets[8]);
 }
 
+/*************************************************************************
+ * MainWindow::tabWidget_tabCloseRequested
+ *************************************************************************/
 void MainWindow::tabWidget_tabCloseRequested(int index, QTabWidget *tabWidget)
 {
     tabWidget->removeTab(index);
@@ -387,6 +414,9 @@ void MainWindow::updateCharts()
     }
 }
 
+/*************************************************************************
+ * MainWindow::populateItemList
+ *************************************************************************/
 void MainWindow::populateItemList()
 {
     QVector<Product> newInputs;
