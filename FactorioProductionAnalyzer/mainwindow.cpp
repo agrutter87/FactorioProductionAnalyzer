@@ -250,7 +250,9 @@ void MainWindow::on_actionNewChart_triggered()
  *************************************************************************/
 void MainWindow::periodicReadTimer_timeout(void)
 {
+#if DEBUG_MAIN_WINDOW
     qDebug("MainWindow::periodicRead");
+#endif
     mProductionAnalyzer.fileRead();
 
     populateItemList();

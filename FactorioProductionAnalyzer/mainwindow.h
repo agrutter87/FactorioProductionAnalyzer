@@ -25,6 +25,8 @@
 #error "Define more tabWidget_tabCloseRequested functions to add more QTabWidgets!"
 #endif
 
+#define DEBUG_MAIN_WINDOW       (0)
+
 /*************************************************************************
  * Ui Namespace
  *************************************************************************/

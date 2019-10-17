@@ -6,6 +6,9 @@
  *************************************************************************/
 ProductionGraph::ProductionGraph(Product::ProductType productType, QWidget* parent, QString name)
 {
+#if DEBUG_PRODUCTION_GRAPH
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
     /* Initialize ProductionGraph */
     mProduct.setName(name);
     mProduct.setProductType(productType);
@@ -84,6 +87,9 @@ ProductionGraph::~ProductionGraph()
  *************************************************************************/
 void ProductionGraph::update()
 {
+#if DEBUG_PRODUCTION_GRAPH
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
     qreal curValue = 0;
     qreal outValue = 0;
 
@@ -174,6 +180,9 @@ void ProductionGraph::update()
  *************************************************************************/
 Product ProductionGraph::getProduct() const
 {
+#if DEBUG_PRODUCTION_GRAPH
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
     return mProduct;
 }
 
@@ -182,5 +191,8 @@ Product ProductionGraph::getProduct() const
  *************************************************************************/
 QtCharts::QChartView *ProductionGraph::getChartView() const
 {
+#if DEBUG_PRODUCTION_GRAPH
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
     return mChartView;
 }

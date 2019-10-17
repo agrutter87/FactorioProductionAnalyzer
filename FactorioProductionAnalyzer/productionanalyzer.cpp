@@ -8,7 +8,9 @@
  *************************************************************************/
 ProductionAnalyzer::ProductionAnalyzer()
 {
-
+#if DEBUG_PRODUCTION_ANALYZER
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
 }
 
 /*************************************************************************
@@ -16,6 +18,9 @@ ProductionAnalyzer::ProductionAnalyzer()
  *************************************************************************/
 QVector<ProductionData> ProductionAnalyzer::getProductionData() const
 {
+#if DEBUG_PRODUCTION_ANALYZER
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
     return mProductionData;
 }
 
@@ -24,6 +29,9 @@ QVector<ProductionData> ProductionAnalyzer::getProductionData() const
  *************************************************************************/
 void ProductionAnalyzer::setProductionData(const QVector<ProductionData> &productionData)
 {
+#if DEBUG_PRODUCTION_ANALYZER
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
     mProductionData = productionData;
 }
 
@@ -32,6 +40,9 @@ void ProductionAnalyzer::setProductionData(const QVector<ProductionData> &produc
  *************************************************************************/
 void ProductionAnalyzer::setFile(SaveFormat saveFormat, QString &fileName)
 {
+#if DEBUG_PRODUCTION_ANALYZER
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
     mFileFormat = saveFormat;
     mFileName = fileName;
 }
@@ -41,8 +52,9 @@ void ProductionAnalyzer::setFile(SaveFormat saveFormat, QString &fileName)
  *************************************************************************/
 bool ProductionAnalyzer::fileRead(void)
 {
-    qDebug("ProductionAnalyzer::fileRead");
-
+#if DEBUG_PRODUCTION_ANALYZER
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
     QFile loadFile(mFileName);
 
     if(!loadFile.open(QIODevice::ReadOnly))
@@ -67,6 +79,9 @@ bool ProductionAnalyzer::fileRead(void)
  *************************************************************************/
 bool ProductionAnalyzer::fileWrite(SaveFormat saveFormat, QString &fileName) const
 {
+#if DEBUG_PRODUCTION_ANALYZER
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
     QFile saveFile(fileName);
 
     if(!saveFile.open(QIODevice::ReadWrite))
@@ -91,6 +106,9 @@ bool ProductionAnalyzer::fileWrite(SaveFormat saveFormat, QString &fileName) con
  *************************************************************************/
 void ProductionAnalyzer::jsonRead(const QJsonObject &json)
 {
+#if DEBUG_PRODUCTION_ANALYZER
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
     ProductionData productionData;
 
     if(json.contains("productiondata") && json["productiondata"].isObject())
@@ -111,6 +129,9 @@ void ProductionAnalyzer::jsonRead(const QJsonObject &json)
  *************************************************************************/
 void ProductionAnalyzer::jsonWrite(QJsonObject &json) const
 {
+#if DEBUG_PRODUCTION_ANALYZER
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
     QJsonObject productionObject;
 
     if(!mProductionData.isEmpty())

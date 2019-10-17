@@ -4,12 +4,14 @@
 #include <QJsonObject>
 #include <QObject>
 #include <QVector>
+#include <QDebug>
 
 #include "product.h"
 
 /*************************************************************************
  * Defines
  *************************************************************************/
+#define DEBUG_PRODUCTION_DATA   (0)
 
 /*************************************************************************
  * ProductionData Class
