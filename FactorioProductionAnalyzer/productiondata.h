@@ -34,8 +34,9 @@ public:
     void jsonRead(const QJsonObject &json);
     void jsonWrite(QJsonObject &json) const;
 
-    void print(int indentation = 0) const;
 private:
+    void print(int indentation = 0) const;
+
     int mTimestamp;
     QVector<Product> mInputs;
     QVector<Product> mOutputs;
