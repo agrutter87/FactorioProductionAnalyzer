@@ -25,22 +25,34 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
-        main.cpp \
-        mainwindow.cpp \
+    factorioassembler.cpp \
+    factorioitem.cpp \
+    factoriominer.cpp \
+    factoriomodule.cpp \
+    factoriorecipe.cpp \
+    factorioresource.cpp \
+    main.cpp \
+    mainwindow.cpp \
     productiondata.cpp \
     product.cpp \
     productionanalyzer.cpp \
     productiongraph.cpp
 
 HEADERS += \
-        mainwindow.h \
+    factorioassembler.h \
+    factorioitem.h \
+    factoriominer.h \
+    factoriomodule.h \
+    factoriorecipe.h \
+    factorioresource.h \
+    mainwindow.h \
     productiondata.h \
     product.h \
     productionanalyzer.h \
     productiongraph.h
 
 FORMS += \
-        mainwindow.ui
+    mainwindow.ui
 
 RESOURCES += \
     mainwindow.qrc
