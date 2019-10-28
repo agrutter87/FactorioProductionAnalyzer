@@ -31,10 +31,10 @@ public:
     bool fileRead(void);
     bool fileWrite(SaveFormat saveFormat, QString &fileName) const;
 
+private:
     void jsonRead(const QJsonObject &json);
     void jsonWrite(QJsonObject &json) const;
 
-private:
     QVector<ProductionData> mProductionData;
     QString mFileFormat;
     QString mFileName;
