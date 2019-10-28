@@ -33,6 +33,7 @@ SOURCES += \
     factorioresource.cpp \
     main.cpp \
     mainwindow.cpp \
+    productioncalculator.cpp \
     productiondata.cpp \
     product.cpp \
     productionanalyzer.cpp \
@@ -46,6 +47,7 @@ HEADERS += \
     factoriorecipe.h \
     factorioresource.h \
     mainwindow.h \
+    productioncalculator.h \
     productiondata.h \
     product.h \
     productionanalyzer.h \
