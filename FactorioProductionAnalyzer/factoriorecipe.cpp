@@ -22,6 +22,8 @@ FactorioRecipe::FactorioRecipe(const QJsonObject &json)
 #if DEBUG_FACTORIO_RECIPE
     qDebug() << __PRETTY_FUNCTION__;
 #endif
+    mIngredients = new QVector<FactorioProduct>;
+    mProducts = new QVector<FactorioProduct>;
     jsonRead(json);
 }
 
@@ -50,6 +52,10 @@ void FactorioRecipe::jsonRead(const QJsonObject &json)
     {
         QJsonArray array = json["ingredients"].toArray(array);
 
+        mIngredients->clear();
+
+        mIngredients->reserve(array.size());
+
         /* Loop through the members of the JSON array */
         for(int index = 0; index < array.size(); ++index)
         {
@@ -70,6 +76,12 @@ void FactorioRecipe::jsonRead(const QJsonObject &json)
     if(json.contains("products") && json["products"].isArray())
     {
         QJsonArray array = json["products"].toArray(array);
+
+        /* Clear the existing data */
+        mProducts->clear();
+
+        /* Reserve memory for the incoming data*/
+        mProducts->reserve(array.size());
 
         /* Loop through the members of the JSON array */
         for(int index = 0; index < array.size(); ++index)

@@ -21,6 +21,7 @@ FactorioResource::FactorioResource(const QJsonObject &json)
 #if DEBUG_FACTORIO_RESOURCE
     qDebug() << __PRETTY_FUNCTION__;
 #endif
+    mProducts = new QVector<FactorioProduct>;
     jsonRead(json);
 }
 
@@ -60,6 +61,12 @@ void FactorioResource::jsonRead(const QJsonObject &json)
     if(json.contains("products") && json["products"].isArray())
     {
         QJsonArray array = json["products"].toArray(array);
+
+        /* Clear the existing data */
+        mProducts->clear();
+
+        /* Reserve memory for the incoming data*/
+        mProducts->reserve(array.size());
 
         /* Loop through the members of the JSON array */
         for(int index = 0; index < array.size(); ++index)
