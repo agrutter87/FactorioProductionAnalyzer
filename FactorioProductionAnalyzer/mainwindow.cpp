@@ -102,7 +102,7 @@ MainWindow::MainWindow(QWidget *parent)
         mHBoxLayouts[j]->addWidget(mTabWidgets[i]);
     }
 
-    mNewChartOkButton_released = false;
+    mNewChartOkButton_clicked = false;
 }
 
 /*************************************************************************
@@ -206,10 +206,10 @@ void MainWindow::on_actionNewChart_triggered()
     }
 
     QPushButton *okButton = new QPushButton("Ok");
-    connect(okButton, SIGNAL(released()), this, SLOT(newChartOkButton_released()));
+    connect(okButton, SIGNAL(clicked()), this, SLOT(newChartOkButton_clicked()));
 
     QPushButton *cancelButton = new QPushButton("Cancel");
-    connect(cancelButton, SIGNAL(released()), this, SLOT(newChartCancelButton_released()));
+    connect(cancelButton, SIGNAL(clicked()), this, SLOT(newChartCancelButton_clicked()));
 
     horizontalLayout1->setAlignment(Qt::AlignCenter);
     horizontalLayout1->addWidget(itemNameLabel);
@@ -235,9 +235,9 @@ void MainWindow::on_actionNewChart_triggered()
     mNewChartDialog->show();
     mNewChartDialog->exec();
 
-    if(mNewChartOkButton_released && !itemNameComboBox->currentText().isEmpty())
+    if(mNewChartOkButton_clicked && !itemNameComboBox->currentText().isEmpty())
     {
-        mNewChartOkButton_released = false;
+        mNewChartOkButton_clicked = false;
 
         Product::ProductType productType = Product::Input;
         if(itemTypeComboBox->currentText() == "Input")
@@ -311,22 +311,22 @@ void MainWindow::periodicReadTimer_timeout(void)
 }
 
 /*************************************************************************
- * MainWindow::newChartOkButton_released
+ * MainWindow::newChartOkButton_clicked
  *************************************************************************/
-void MainWindow::newChartOkButton_released(void)
+void MainWindow::newChartOkButton_clicked(void)
 {
 #if DEBUG_MAIN_WINDOW
     qDebug() << __PRETTY_FUNCTION__;
 #endif
-    mNewChartOkButton_released = true;
+    mNewChartOkButton_clicked = true;
 
     mNewChartDialog->close();
 }
 
 /*************************************************************************
- * MainWindow::newChartCancelButton_released
+ * MainWindow::newChartCancelButton_clicked
  *************************************************************************/
-void MainWindow::newChartCancelButton_released(void)
+void MainWindow::newChartCancelButton_clicked(void)
 {
 #if DEBUG_MAIN_WINDOW
     qDebug() << __PRETTY_FUNCTION__;

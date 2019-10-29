@@ -58,8 +58,8 @@ private slots:
     void                                on_actionCalculator_triggered();
 
     void                                periodicReadTimer_timeout();
-    void                                newChartOkButton_released();
-    void                                newChartCancelButton_released();
+    void                                newChartOkButton_clicked();
+    void                                newChartCancelButton_clicked();
     void                                tabWidget_tabCloseRequested_0(int index);
     void                                tabWidget_tabCloseRequested_1(int index);
     void                                tabWidget_tabCloseRequested_2(int index);
@@ -83,7 +83,7 @@ private:
 
     QDialog                             *mNewChartDialog;
     QStringList                         mItemNameStringList;
-    bool                                mNewChartOkButton_released;
+    bool                                mNewChartOkButton_clicked;
 };
 
 #endif // MAINWINDOW_H
