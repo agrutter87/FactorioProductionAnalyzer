@@ -110,6 +110,7 @@ void ProductionCalculator::jsonRead(const QJsonObject &json)
         {
             FactorioRecipe newRecipe(object[name].toObject());
             mRecipes.append(newRecipe);
+            mRecipeComboBox->addItem(newRecipe.getName());
         }
     }
     if(json.contains("resources") && json["resources"].isObject())
