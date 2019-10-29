@@ -21,9 +21,6 @@ ProductionCalculator::ProductionCalculator(QWidget *parent) : QDialog(parent)
     mHorizontalLayout->addWidget(mRecipeComboBox);
 
     mVerticalLayout->addLayout(mHorizontalLayout);
-    mVerticalLayout->addLayout(horizontalLayout2);
-    mVerticalLayout->addLayout(horizontalLayout3);
-    mVerticalLayout->addLayout(horizontalLayout4);
 }
 
 /*************************************************************************
