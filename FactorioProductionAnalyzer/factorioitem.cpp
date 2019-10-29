@@ -25,7 +25,7 @@ void FactorioItem::jsonRead(const QJsonObject &json)
     }
 
     /* Read the stack_size value if it exists */
-    if (json.contains("stack_size") && json["stack_size"].isString())
+    if (json.contains("stack_size") && json["stack_size"].isDouble())
     {
         mStackSize = json["stack_size"].toDouble();
     }
