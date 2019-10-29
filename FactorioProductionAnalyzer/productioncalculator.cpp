@@ -1,4 +1,5 @@
 #include "productioncalculator.h"
+
 #include <QFile>
 #include <QJsonDocument>
 
@@ -10,6 +11,19 @@ ProductionCalculator::ProductionCalculator(QWidget *parent) : QDialog(parent)
 #if DEBUG_PRODUCTION_CALCULATOR
     qDebug() << __PRETTY_FUNCTION__;
 #endif
+    mRecipeLabel = new QLabel("Recipe:");
+    mRecipeComboBox = new QComboBox();
+    mVerticalLayout = new QVBoxLayout(this);
+    mHorizontalLayout = new QHBoxLayout();
+
+    mHorizontalLayout->setAlignment(Qt::AlignCenter);
+    mHorizontalLayout->addWidget(mRecipeLabel);
+    mHorizontalLayout->addWidget(mRecipeComboBox);
+
+    mVerticalLayout->addLayout(mHorizontalLayout);
+    mVerticalLayout->addLayout(horizontalLayout2);
+    mVerticalLayout->addLayout(horizontalLayout3);
+    mVerticalLayout->addLayout(horizontalLayout4);
 }
 
 /*************************************************************************
