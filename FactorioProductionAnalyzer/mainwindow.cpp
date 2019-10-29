@@ -144,7 +144,7 @@ void MainWindow::on_actionOpen_triggered()
             mProductionAnalyzer.setFile(ProductionAnalyzer::Json, fileName);
             mProductionAnalyzer.fileRead();
             populateItemList();
-            periodicReadTimer->start(PRODUCTION_DATA_READ_PERIOD_MS);
+            periodicReadTimer->start(READ_PERIOD_MS);
         }
         else if(fileName.contains(".dat"))
         {
@@ -152,7 +152,7 @@ void MainWindow::on_actionOpen_triggered()
             mProductionAnalyzer.setFile(ProductionAnalyzer::Binary, fileName);
             mProductionAnalyzer.fileRead();
             populateItemList();
-            periodicReadTimer->start(PRODUCTION_DATA_READ_PERIOD_MS);
+            periodicReadTimer->start(READ_PERIOD_MS);
         }
     }
 }

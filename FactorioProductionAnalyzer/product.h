@@ -7,7 +7,7 @@
 /*************************************************************************
  * Defines
  *************************************************************************/
-#define DEBUG_PRODUCT            (0)
+#define DEBUG_PRODUCT                   (0)
 
 /*************************************************************************
  * Product Class
@@ -19,30 +19,30 @@ class Product
 public:
     typedef enum
     {
-        Input,
-        Output,
+        Input                           = 0,
+        Output                          = 1,
     } ProductType;
 
-    Product();
+                                        Product();
 
-    QString getName() const;
-    void setName(const QString &name);
+    QString                             getName() const;
+    void                                setName(const QString &name);
 
-    double getValue() const;
-    void setValue(double value);
+    double                              getValue() const;
+    void                                setValue(double value);
 
-    ProductType getProductType() const;
-    void setProductType(ProductType productType);
+    ProductType                         getProductType() const;
+    void                                setProductType(ProductType productType);
 
-    void jsonRead(const QJsonObject &json);
-    void jsonWrite(QJsonObject &json) const;
+    void                                jsonRead(const QJsonObject &json);
+    void                                jsonWrite(QJsonObject &json) const;
 
-    void print(int indentation = 0) const;
+    void                                print(int indentation = 0) const;
 
 private:
-    QString mName;
-    double mValue;
-    ProductType mProductType;
+    QString                             mName;
+    double                              mValue;
+    ProductType                         mProductType;
 };
 
 #endif // PRODUCT_H

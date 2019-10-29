@@ -3,15 +3,25 @@
 
 #include <QJsonObject>
 
+/*************************************************************************
+ * Defines
+ *************************************************************************/
+#define DEBUG_FACTORIO_ITEM             (1)
+
+/*************************************************************************
+ * FactorioItem Class
+ *************************************************************************/
 class FactorioItem
 {
 public:
-    FactorioItem();
+                                        FactorioItem();
 
-    void jsonRead(const QJsonObject &json);
+    void                                jsonRead(const QJsonObject &json);
 
 private:
-    QString mName;
+    QString                             mName;
+    double                              mStackSize;
+    QString                             mType;
 };
 
 #endif // FACTORIO_ITEM_H

@@ -118,7 +118,7 @@ void ProductionAnalyzer::jsonRead(const QJsonObject &json)
 
     mProductionData.append(productionData);
 
-    while(mProductionData.size() > PRODUCTION_DATA_BUFFER_SIZE_OBJECTS_MAX)
+    while(mProductionData.size() > BUFFER_SIZE_OBJECTS_MAX)
     {
         mProductionData.removeFirst();
     }

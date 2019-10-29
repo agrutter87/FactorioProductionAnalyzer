@@ -6,9 +6,9 @@
 /*************************************************************************
  * Defines
  *************************************************************************/
-#define PRODUCTION_DATA_BUFFER_SIZE_OBJECTS_MAX     (1 * 60)
-#define PRODUCTION_DATA_READ_PERIOD_MS              (1000)
-#define DEBUG_PRODUCTION_ANALYZER                   (0)
+#define BUFFER_SIZE_OBJECTS_MAX         (1 * 60)
+#define READ_PERIOD_MS                  (1000)
+#define DEBUG_PRODUCTION_ANALYZER       (0)
 
 /*************************************************************************
  * ProductionAnalyzer Class
@@ -18,26 +18,27 @@ class ProductionAnalyzer
 public:
     enum SaveFormat
     {
-        Json, Binary
+        Json                            = 0,
+        Binary                          = 1,
     };
 
-    ProductionAnalyzer();
+                                        ProductionAnalyzer();
 
-    QVector<ProductionData> getProductionData() const;
-    void setProductionData(const QVector<ProductionData> &productionData);
+    QVector<ProductionData>             getProductionData() const;
+    void                                setProductionData(const QVector<ProductionData> &productionData);
 
-    void setFile(SaveFormat saveFormat, QString &fileName);
+    void                                setFile(SaveFormat saveFormat, QString &fileName);
 
-    bool fileRead(void);
-    bool fileWrite(SaveFormat saveFormat, QString &fileName) const;
+    bool                                fileRead(void);
+    bool                                fileWrite(SaveFormat saveFormat, QString &fileName) const;
 
 private:
-    void jsonRead(const QJsonObject &json);
-    void jsonWrite(QJsonObject &json) const;
+    void                                jsonRead(const QJsonObject &json);
+    void                                jsonWrite(QJsonObject &json) const;
 
-    QVector<ProductionData> mProductionData;
-    QString mFileFormat;
-    QString mFileName;
+    QVector<ProductionData>             mProductionData;
+    QString                             mFileFormat;
+    QString                             mFileName;
 };
 
 #endif // PRODUCTIONANALYZER_H

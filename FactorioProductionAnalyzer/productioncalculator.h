@@ -14,7 +14,7 @@
 /*************************************************************************
  * Defines
  *************************************************************************/
-#define DEBUG_PRODUCTION_CALCULATOR                 (0)
+#define DEBUG_PRODUCTION_CALCULATOR     (0)
 
 /*************************************************************************
  * ProductionCalculator Class
@@ -24,22 +24,22 @@ class ProductionCalculator
     Q_GADGET
 
 public:
-    ProductionCalculator();
+                                        ProductionCalculator();
 
-    void setFile(QString &fileName);
+    void                                setFile(QString &fileName);
 
-    bool fileRead(void);
-    void jsonRead(const QJsonObject &json);
+    bool                                fileRead(void);
+    void                                jsonRead(const QJsonObject &json);
 
 private:
     QString mFileName;
 
-    QVector<FactorioAssembler>  mAssemblers;
-    QVector<FactorioItem>       mItems;
-    QVector<FactorioMiner>      mMiners;
-    QVector<FactorioModule>     mModules;
-    QVector<FactorioRecipe>     mRecipes;
-    QVector<FactorioResource>   mResources;
+    QVector<FactorioAssembler>          mAssemblers;
+    QVector<FactorioItem>               mItems;
+    QVector<FactorioMiner>              mMiners;
+    QVector<FactorioModule>             mModules;
+    QVector<FactorioRecipe>             mRecipes;
+    QVector<FactorioResource>           mResources;
 };
 
 #endif // PRODUCTIONCALCULATOR_H

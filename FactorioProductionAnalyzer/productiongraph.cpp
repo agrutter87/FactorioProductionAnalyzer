@@ -127,9 +127,9 @@ void ProductionGraph::update()
 
     /* Append the data to the main lineSeries */
     mMainLineSeries->append(mX, outValue);
-    if(mMainLineSeries->count() > PRODUCTION_DATA_BUFFER_SIZE_OBJECTS_MAX)
+    if(mMainLineSeries->count() > BUFFER_SIZE_OBJECTS_MAX)
     {
-        mMainLineSeries->removePoints(mMainLineSeries->count() - PRODUCTION_DATA_BUFFER_SIZE_OBJECTS_MAX, 1);
+        mMainLineSeries->removePoints(mMainLineSeries->count() - BUFFER_SIZE_OBJECTS_MAX, 1);
     }
 
     /* For each series on this graph */
@@ -148,9 +148,9 @@ void ProductionGraph::update()
             outValue /= avg_count;
 
             mProductionAnalyzerSeries[j].lineSeries->append(mX, outValue);
-            if(mProductionAnalyzerSeries[j].lineSeries->count() > PRODUCTION_DATA_BUFFER_SIZE_OBJECTS_MAX)
+            if(mProductionAnalyzerSeries[j].lineSeries->count() > BUFFER_SIZE_OBJECTS_MAX)
             {
-                mProductionAnalyzerSeries[j].lineSeries->removePoints(mProductionAnalyzerSeries[j].lineSeries->count() - PRODUCTION_DATA_BUFFER_SIZE_OBJECTS_MAX, 1);
+                mProductionAnalyzerSeries[j].lineSeries->removePoints(mProductionAnalyzerSeries[j].lineSeries->count() - BUFFER_SIZE_OBJECTS_MAX, 1);
             }
         }
     }
@@ -165,9 +165,9 @@ void ProductionGraph::update()
         mTimestampAxisX->setMax(mX);
 
         /* Set the min higher to keep it "scrolling" once it fills the time span */
-        if(mX >= PRODUCTION_DATA_BUFFER_SIZE_OBJECTS_MAX)
+        if(mX >= BUFFER_SIZE_OBJECTS_MAX)
         {
-            mTimestampAxisX->setMin(mX - PRODUCTION_DATA_BUFFER_SIZE_OBJECTS_MAX + 1);
+            mTimestampAxisX->setMin(mX - BUFFER_SIZE_OBJECTS_MAX + 1);
         }
     }
 

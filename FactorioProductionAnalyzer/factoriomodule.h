@@ -2,16 +2,32 @@
 #define FACTORIO_MODULE_H
 
 #include <QJsonObject>
+#include <QStringList>
 
+/*************************************************************************
+ * Defines
+ *************************************************************************/
+#define DEBUG_FACTORIO_MODULE           (1)
+
+/*************************************************************************
+ * FactorioModule Class
+ *************************************************************************/
 class FactorioModule
 {
 public:
-    FactorioModule();
+                                        FactorioModule();
 
-    void jsonRead(const QJsonObject &json);
+    void                                jsonRead(const QJsonObject &json);
 
 private:
-    QString mName;
+    QString                             mCategory;
+    QStringList                         mLimitations;
+    double                              mModuleEffectConsumption;
+    double                              mModuleEffectPollution;
+    double                              mModuleEffectProductivity;
+    double                              mModuleEffectSpeed;
+    QString                             mName;
+    double                              mTier;
 };
 
 #endif // FACTORIO_MODULE_H

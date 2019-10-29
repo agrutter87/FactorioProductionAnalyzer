@@ -28,10 +28,10 @@ public:
         int                             numDataToAvg;
     } ProductionAnalyzerSeries;
 
-    ProductionGraph(Product::ProductType productType,
-                    QWidget *parent = nullptr,
-                    QString name = "Unnamed");
-    ~ProductionGraph();
+                                        ProductionGraph(Product::ProductType productType,
+                                                        QWidget *parent = nullptr,
+                                                        QString name = "Unnamed");
+                                        ~ProductionGraph();
 
     void                                update();
     Product                             getProduct() const;
