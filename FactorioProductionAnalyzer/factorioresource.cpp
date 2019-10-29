@@ -26,6 +26,17 @@ FactorioResource::FactorioResource(const QJsonObject &json)
 }
 
 /*************************************************************************
+ * FactorioResource::getName
+ *************************************************************************/
+QString FactorioResource::getName() const
+{
+#if DEBUG_FACTORIO_RESOURCE
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
+    return mName;
+}
+
+/*************************************************************************
  * FactorioResource::jsonRead
  *************************************************************************/
 void FactorioResource::jsonRead(const QJsonObject &json)

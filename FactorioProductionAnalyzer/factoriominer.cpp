@@ -23,6 +23,17 @@ FactorioMiner::FactorioMiner(const QJsonObject &json)
 }
 
 /*************************************************************************
+ * FactorioMiner::getName
+ *************************************************************************/
+QString FactorioMiner::getName() const
+{
+#if DEBUG_FACTORIO_MINER
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
+    return mName;
+}
+
+/*************************************************************************
  * FactorioMiner::jsonRead
  *************************************************************************/
 void FactorioMiner::jsonRead(const QJsonObject &json)

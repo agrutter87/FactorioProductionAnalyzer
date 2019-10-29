@@ -23,6 +23,17 @@ FactorioModule::FactorioModule(const QJsonObject &json)
 }
 
 /*************************************************************************
+ * FactorioModule::getName
+ *************************************************************************/
+QString FactorioModule::getName() const
+{
+#if DEBUG_FACTORIO_MODULE
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
+    return mName;
+}
+
+/*************************************************************************
  * FactorioModule::jsonRead
  *************************************************************************/
 void FactorioModule::jsonRead(const QJsonObject &json)

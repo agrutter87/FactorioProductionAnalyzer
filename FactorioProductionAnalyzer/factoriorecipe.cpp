@@ -28,6 +28,17 @@ FactorioRecipe::FactorioRecipe(const QJsonObject &json)
 }
 
 /*************************************************************************
+ * FactorioRecipe::getName
+ *************************************************************************/
+QString FactorioRecipe::getName() const
+{
+#if DEBUG_FACTORIO_RECIPE
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
+    return mName;
+}
+
+/*************************************************************************
  * FactorioRecipe::jsonRead
  *************************************************************************/
 void FactorioRecipe::jsonRead(const QJsonObject &json)

@@ -22,6 +22,17 @@ FactorioAssembler::FactorioAssembler(const QJsonObject &json)
 }
 
 /*************************************************************************
+ * FactorioAssembler::getName
+ *************************************************************************/
+QString FactorioAssembler::getName() const
+{
+#if DEBUG_FACTORIO_ASSEMBLER
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
+    return mName;
+}
+
+/*************************************************************************
  * FactorioAssembler::jsonRead
  *************************************************************************/
 void FactorioAssembler::jsonRead(const QJsonObject &json)

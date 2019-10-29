@@ -18,6 +18,8 @@ public:
                                         FactorioRecipe();
                                         FactorioRecipe(const QJsonObject &json);
 
+    QString                             getName() const;
+
 private:
     void                                jsonRead(const QJsonObject &json);
 

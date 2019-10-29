@@ -19,6 +19,8 @@ public:
                                         FactorioAssembler();
                                         FactorioAssembler(const QJsonObject &json);
 
+    QString                             getName() const;
+
 private:
     void                                jsonRead(const QJsonObject &json);
 
