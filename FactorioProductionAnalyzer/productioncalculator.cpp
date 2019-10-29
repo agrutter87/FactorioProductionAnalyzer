@@ -13,7 +13,7 @@ ProductionCalculator::ProductionCalculator(QWidget *parent) : QDialog(parent)
 }
 
 /*************************************************************************
- * ProductionAnalyzer::setFile
+ * ProductionCalculator::setFile
  *************************************************************************/
 void ProductionCalculator::setFile(QString &fileName)
 {
@@ -24,7 +24,7 @@ void ProductionCalculator::setFile(QString &fileName)
 }
 
 /*************************************************************************
- * ProductionAnalyzer::fileRead
+ * ProductionCalculator::fileRead
  *************************************************************************/
 bool ProductionCalculator::fileRead(void)
 {
@@ -49,7 +49,7 @@ bool ProductionCalculator::fileRead(void)
 }
 
 /*************************************************************************
- * ProductionAnalyzer::jsonRead
+ * ProductionCalculator::jsonRead
  *************************************************************************/
 void ProductionCalculator::jsonRead(const QJsonObject &json)
 {
