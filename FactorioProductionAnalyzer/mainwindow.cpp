@@ -25,6 +25,8 @@ MainWindow::MainWindow(QWidget *parent)
     /* Setup Qt Designer part of the UI */
     ui->setupUi(this);
 
+    mProductionCalculator = new ProductionCalculator(this);
+
     /* Create a timer to use for periodic reading of the Factorio mod output data file */
     periodicReadTimer = new QTimer(this);
     connect(periodicReadTimer, SIGNAL(timeout()), this, SLOT(periodicReadTimer_timeout()));
@@ -282,8 +284,12 @@ void MainWindow::on_actionCalculator_triggered()
     if(!fileName.isEmpty())
     {
         /* Set the file information as a JSON file */
-        mProductionCalculator.setFile(fileName);
-        mProductionCalculator.fileRead();
+        mProductionCalculator->setFile(fileName);
+        mProductionCalculator->fileRead();
+
+        mProductionCalculator->setModal(true);
+        mProductionCalculator->show();
+        mProductionCalculator->exec();
     }
 }
 

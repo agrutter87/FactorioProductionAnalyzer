@@ -1,6 +1,7 @@
 #ifndef PRODUCTIONCALCULATOR_H
 #define PRODUCTIONCALCULATOR_H
 
+#include <QDialog>
 #include <QJsonObject>
 #include <QObject>
 
@@ -19,12 +20,12 @@
 /*************************************************************************
  * ProductionCalculator Class
  *************************************************************************/
-class ProductionCalculator
+class ProductionCalculator : public QDialog
 {
     Q_GADGET
 
 public:
-                                        ProductionCalculator();
+                                        ProductionCalculator(QWidget *parent = nullptr);
 
     void                                setFile(QString &fileName);
 

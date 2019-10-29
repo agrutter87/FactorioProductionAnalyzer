@@ -74,7 +74,7 @@ private slots:
 private:
     Ui::MainWindow                      *ui;
     ProductionAnalyzer                  mProductionAnalyzer;
-    ProductionCalculator                mProductionCalculator;
+    ProductionCalculator                *mProductionCalculator;
     QTimer                              *periodicReadTimer;
     QVector<ProductionGraph*>           mProductionGraphs;
 

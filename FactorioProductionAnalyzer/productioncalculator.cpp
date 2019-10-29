@@ -5,7 +5,7 @@
 /*************************************************************************
  * ProductionCalculator::ProductionCalculator
  *************************************************************************/
-ProductionCalculator::ProductionCalculator()
+ProductionCalculator::ProductionCalculator(QWidget *parent) : QDialog(parent)
 {
 #if DEBUG_PRODUCTION_CALCULATOR
     qDebug() << __PRETTY_FUNCTION__;
