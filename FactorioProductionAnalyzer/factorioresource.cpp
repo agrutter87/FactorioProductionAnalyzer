@@ -72,8 +72,7 @@ void FactorioResource::jsonRead(const QJsonObject &json)
         for(int index = 0; index < array.size(); ++index)
         {
             /* Create, configure, and append a new FactorioProduct */
-            FactorioProduct newProduct;
-            newProduct.jsonRead(array[index].toObject());
+            FactorioProduct newProduct(array[index].toObject());
             mProducts->append(newProduct);
         }
     }
