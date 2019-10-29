@@ -5,7 +5,9 @@
  *************************************************************************/
 FactorioAssembler::FactorioAssembler()
 {
-
+#if DEBUG_FACTORIO_ASSEMBLER
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
 }
 
 /*************************************************************************
@@ -13,6 +15,9 @@ FactorioAssembler::FactorioAssembler()
  *************************************************************************/
 void FactorioAssembler::jsonRead(const QJsonObject &json)
 {
+#if DEBUG_FACTORIO_ASSEMBLER
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
     if (json.contains("allowed_effects"))
     {
         QJsonObject allowedEffects = json["allowed_effects"].toObject();

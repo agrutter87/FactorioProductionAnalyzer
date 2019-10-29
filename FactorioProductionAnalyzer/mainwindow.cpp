@@ -19,6 +19,9 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow)
 {
+#if DEBUG_MAIN_WINDOW
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
     /* Setup Qt Designer part of the UI */
     ui->setupUi(this);
 
@@ -105,6 +108,9 @@ MainWindow::MainWindow(QWidget *parent)
  *************************************************************************/
 MainWindow::~MainWindow()
 {
+#if DEBUG_MAIN_WINDOW
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
     delete periodicReadTimer;
     delete ui;
 }
@@ -117,6 +123,9 @@ MainWindow::~MainWindow()
  *************************************************************************/
 void MainWindow::on_actionOpen_triggered()
 {
+#if DEBUG_MAIN_WINDOW
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
     /* Set the strings used in the getOpenFileName dialog */
     QString fileDialogCaption = "Open File";
 #ifdef WIN32
@@ -162,6 +171,9 @@ void MainWindow::on_actionOpen_triggered()
  *************************************************************************/
 void MainWindow::on_actionNewChart_triggered()
 {
+#if DEBUG_MAIN_WINDOW
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
     mNewChartDialog = new QDialog();
     mNewChartDialog->setModal(true);
     mNewChartDialog->setWindowTitle("Configure Chart");
@@ -251,7 +263,7 @@ void MainWindow::on_actionNewChart_triggered()
 void MainWindow::periodicReadTimer_timeout(void)
 {
 #if DEBUG_MAIN_WINDOW
-    qDebug("MainWindow::periodicRead");
+    qDebug() << __PRETTY_FUNCTION__;
 #endif
     mProductionAnalyzer.fileRead();
 
@@ -264,6 +276,9 @@ void MainWindow::periodicReadTimer_timeout(void)
  *************************************************************************/
 void MainWindow::newChartOkButton_released(void)
 {
+#if DEBUG_MAIN_WINDOW
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
     mNewChartOkButton_released = true;
 
     mNewChartDialog->close();
@@ -274,6 +289,9 @@ void MainWindow::newChartOkButton_released(void)
  *************************************************************************/
 void MainWindow::newChartCancelButton_released(void)
 {
+#if DEBUG_MAIN_WINDOW
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
     mNewChartDialog->close();
 }
 
@@ -282,38 +300,65 @@ void MainWindow::newChartCancelButton_released(void)
  *************************************************************************/
 void MainWindow::tabWidget_tabCloseRequested_0(int index)
 {
+#if DEBUG_MAIN_WINDOW
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
     tabWidget_tabCloseRequested(index, mTabWidgets[0]);
 }
 void MainWindow::tabWidget_tabCloseRequested_1(int index)
 {
+#if DEBUG_MAIN_WINDOW
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
     tabWidget_tabCloseRequested(index, mTabWidgets[1]);
 }
 void MainWindow::tabWidget_tabCloseRequested_2(int index)
 {
+#if DEBUG_MAIN_WINDOW
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
     tabWidget_tabCloseRequested(index, mTabWidgets[2]);
 }
 void MainWindow::tabWidget_tabCloseRequested_3(int index)
 {
+#if DEBUG_MAIN_WINDOW
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
     tabWidget_tabCloseRequested(index, mTabWidgets[3]);
 }
 void MainWindow::tabWidget_tabCloseRequested_4(int index)
 {
+#if DEBUG_MAIN_WINDOW
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
     tabWidget_tabCloseRequested(index, mTabWidgets[4]);
 }
 void MainWindow::tabWidget_tabCloseRequested_5(int index)
 {
+#if DEBUG_MAIN_WINDOW
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
     tabWidget_tabCloseRequested(index, mTabWidgets[5]);
 }
 void MainWindow::tabWidget_tabCloseRequested_6(int index)
 {
+#if DEBUG_MAIN_WINDOW
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
     tabWidget_tabCloseRequested(index, mTabWidgets[6]);
 }
 void MainWindow::tabWidget_tabCloseRequested_7(int index)
 {
+#if DEBUG_MAIN_WINDOW
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
     tabWidget_tabCloseRequested(index, mTabWidgets[7]);
 }
 void MainWindow::tabWidget_tabCloseRequested_8(int index)
 {
+#if DEBUG_MAIN_WINDOW
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
     tabWidget_tabCloseRequested(index, mTabWidgets[8]);
 }
 
@@ -322,6 +367,9 @@ void MainWindow::tabWidget_tabCloseRequested_8(int index)
  *************************************************************************/
 void MainWindow::tabWidget_tabCloseRequested(int index, QTabWidget *tabWidget)
 {
+#if DEBUG_MAIN_WINDOW
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
     tabWidget->removeTab(index);
     if(tabWidget->currentIndex() == -1)
     {
@@ -334,6 +382,9 @@ void MainWindow::tabWidget_tabCloseRequested(int index, QTabWidget *tabWidget)
  *************************************************************************/
 void MainWindow::createChart(const QString &name, QTabWidget *tabWidget, Product::ProductType productType)
 {
+#if DEBUG_MAIN_WINDOW
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
     ProductionGraph *productionGraph = nullptr;
     QString tabNameProductType;
     bool alreadyCreated = false;
@@ -383,6 +434,9 @@ void MainWindow::createChart(const QString &name, QTabWidget *tabWidget, Product
  *************************************************************************/
 void MainWindow::updateCharts()
 {
+#if DEBUG_MAIN_WINDOW
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
     QVector<Product> newInputs;
     QVector<Product> newOutputs;
 
@@ -428,6 +482,9 @@ void MainWindow::updateCharts()
  *************************************************************************/
 void MainWindow::populateItemList()
 {
+#if DEBUG_MAIN_WINDOW
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
     QVector<Product> newInputs;
     QVector<Product> newOutputs;
 

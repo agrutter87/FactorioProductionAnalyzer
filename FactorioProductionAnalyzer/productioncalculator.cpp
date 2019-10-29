@@ -7,7 +7,9 @@
  *************************************************************************/
 ProductionCalculator::ProductionCalculator()
 {
-
+#if DEBUG_PRODUCTION_CALCULATOR
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
 }
 
 /*************************************************************************

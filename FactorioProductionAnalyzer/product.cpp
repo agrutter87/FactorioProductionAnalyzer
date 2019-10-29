@@ -7,7 +7,9 @@
  *************************************************************************/
 Product::Product()
 {
-
+#if DEBUG_PRODUCT
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
 }
 
 /*************************************************************************
@@ -15,6 +17,9 @@ Product::Product()
  *************************************************************************/
 QString Product::getName() const
 {
+#if DEBUG_PRODUCT
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
     return mName;
 }
 
@@ -23,6 +28,9 @@ QString Product::getName() const
  *************************************************************************/
 void Product::setName(const QString &name)
 {
+#if DEBUG_PRODUCT
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
     mName = name;
 }
 
@@ -31,6 +39,9 @@ void Product::setName(const QString &name)
  *************************************************************************/
 double Product::getValue() const
 {
+#if DEBUG_PRODUCT
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
     return mValue;
 }
 
@@ -39,6 +50,9 @@ double Product::getValue() const
  *************************************************************************/
 void Product::setValue(double value)
 {
+#if DEBUG_PRODUCT
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
     mValue = value;
 }
 
@@ -47,6 +61,9 @@ void Product::setValue(double value)
  *************************************************************************/
 Product::ProductType Product::getProductType() const
 {
+#if DEBUG_PRODUCT
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
     return mProductType;
 }
 
@@ -55,6 +72,9 @@ Product::ProductType Product::getProductType() const
  *************************************************************************/
 void Product::setProductType(ProductType productType)
 {
+#if DEBUG_PRODUCT
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
     mProductType = productType;
 }
 
@@ -63,6 +83,9 @@ void Product::setProductType(ProductType productType)
  *************************************************************************/
 void Product::jsonRead(const QJsonObject &json)
 {
+#if DEBUG_PRODUCT
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
     /* Find "name" section in JSON object and ensure it is set to a String */
     if (json.contains("name") && json["name"].isString())
     {
@@ -83,6 +106,9 @@ void Product::jsonRead(const QJsonObject &json)
  *************************************************************************/
 void Product::jsonWrite(QJsonObject &json) const
 {
+#if DEBUG_PRODUCT
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
     /* Set the JSON data for "name" to mName */
     json["name"] = mName;
 

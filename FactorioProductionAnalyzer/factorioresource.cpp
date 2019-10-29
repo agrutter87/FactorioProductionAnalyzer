@@ -5,7 +5,9 @@
  *************************************************************************/
 FactorioResource::FactorioResource()
 {
-
+#if DEBUG_FACTORIO_RESOURCE
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
 }
 
 /*************************************************************************
@@ -13,6 +15,9 @@ FactorioResource::FactorioResource()
  *************************************************************************/
 void FactorioResource::jsonRead(const QJsonObject &json)
 {
+#if DEBUG_FACTORIO_RESOURCE
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
     /* Find "name" section in JSON object and ensure it is set to a String */
     if (json.contains("name") && json["name"].isString())
     {

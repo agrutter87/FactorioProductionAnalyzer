@@ -7,7 +7,9 @@
  *************************************************************************/
 ProductionData::ProductionData()
 {
-
+#if DEBUG_PRODUCTION_DATA
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
 }
 
 /*************************************************************************
@@ -15,6 +17,9 @@ ProductionData::ProductionData()
  *************************************************************************/
 int ProductionData::getTimestamp() const
 {
+#if DEBUG_PRODUCTION_DATA
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
     return mTimestamp;
 }
 
@@ -23,6 +28,9 @@ int ProductionData::getTimestamp() const
  *************************************************************************/
 QVector<Product> ProductionData::getInputs() const
 {
+#if DEBUG_PRODUCTION_DATA
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
     return mInputs;
 }
 
@@ -31,6 +39,9 @@ QVector<Product> ProductionData::getInputs() const
  *************************************************************************/
 void ProductionData::setInputs(const QVector<Product> &products)
 {
+#if DEBUG_PRODUCTION_DATA
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
     mInputs = products;
 }
 
@@ -39,6 +50,9 @@ void ProductionData::setInputs(const QVector<Product> &products)
  *************************************************************************/
 QVector<Product> ProductionData::getOutputs() const
 {
+#if DEBUG_PRODUCTION_DATA
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
     return mOutputs;
 }
 
@@ -47,6 +61,9 @@ QVector<Product> ProductionData::getOutputs() const
  *************************************************************************/
 void ProductionData::setOutputs(const QVector<Product> &products)
 {
+#if DEBUG_PRODUCTION_DATA
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
     mOutputs = products;
 }
 
@@ -55,6 +72,9 @@ void ProductionData::setOutputs(const QVector<Product> &products)
  *************************************************************************/
 void ProductionData::jsonRead(const QJsonObject &json)
 {
+#if DEBUG_PRODUCTION_DATA
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
     /* Find "timestamp" section in JSON object and ensure it is a number */
     if (json.contains("timestamp") && json["timestamp"].isDouble())
     {
@@ -124,6 +144,9 @@ void ProductionData::jsonRead(const QJsonObject &json)
  *************************************************************************/
 void ProductionData::jsonWrite(QJsonObject &json) const
 {
+#if DEBUG_PRODUCTION_DATA
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
     /* Create a local JSON array for "inputs" data */
     QJsonArray inputArray;
 
