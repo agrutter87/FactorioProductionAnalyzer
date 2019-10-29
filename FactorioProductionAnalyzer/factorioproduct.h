@@ -1,30 +1,27 @@
-#ifndef FACTORIO_RECIPE_H
-#define FACTORIO_RECIPE_H
+#ifndef FACTORIOPRODUCT_H
+#define FACTORIOPRODUCT_H
 
 #include <QJsonObject>
-#include "factorioproduct.h"
 
 /*************************************************************************
  * Defines
  *************************************************************************/
-#define DEBUG_FACTORIO_RECIPE           (1)
+#define DEBUG_FACTORIO_PRODUCT          (1)
 
 /*************************************************************************
- * FactorioRecipe Class
+ * FactorioProduct Class
  *************************************************************************/
-class FactorioRecipe
+class FactorioProduct
 {
 public:
-                                        FactorioRecipe();
+                                        FactorioProduct();
 
     void                                jsonRead(const QJsonObject &json);
 
 private:
-    QString                             mCategory;
-    double                              mEnergy;
-    QVector<FactorioProduct>            *mIngredients;
+    double                              mAmount;
     QString                             mName;
-    QVector<FactorioProduct>            *mProducts;
+    QString                             mType;
 };
 
-#endif // FACTORIO_RECIPE_H
+#endif // FACTORIOPRODUCT_H

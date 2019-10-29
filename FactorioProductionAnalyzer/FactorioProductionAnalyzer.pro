@@ -29,6 +29,7 @@ SOURCES += \
     factorioitem.cpp \
     factoriominer.cpp \
     factoriomodule.cpp \
+    factorioproduct.cpp \
     factoriorecipe.cpp \
     factorioresource.cpp \
     main.cpp \
@@ -44,6 +45,7 @@ HEADERS += \
     factorioitem.h \
     factoriominer.h \
     factoriomodule.h \
+    factorioproduct.h \
     factoriorecipe.h \
     factorioresource.h \
     mainwindow.h \

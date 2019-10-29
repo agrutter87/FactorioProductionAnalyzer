@@ -20,7 +20,12 @@ public:
     void                                jsonRead(const QJsonObject &json);
 
 private:
+    bool                                mInfinite;
+    double                              mMinimum;
+    double                              mMiningTime;
     QString                             mName;
+    QVector<FactorioProduct>            *mProducts;
+    QString                             mResourceCategory;
 };
 
 #endif // FACTORIO_RESOURCE_H
