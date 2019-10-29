@@ -29,9 +29,10 @@ public:
     void                                setFile(QString &fileName);
 
     bool                                fileRead(void);
-    void                                jsonRead(const QJsonObject &json);
 
 private:
+    void                                jsonRead(const QJsonObject &json);
+
     QString mFileName;
 
     QVector<FactorioAssembler>          mAssemblers;

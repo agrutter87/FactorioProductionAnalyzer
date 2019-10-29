@@ -61,9 +61,8 @@ void ProductionCalculator::jsonRead(const QJsonObject &json)
         QJsonObject object = json["assemblers"].toObject();
         foreach (QString name, object.keys())
         {
-            QJsonObject assembler = object[name].toObject();
             FactorioAssembler newAssembler;
-            newAssembler.jsonRead(assembler);
+            newAssembler.jsonRead(object[name].toObject());
             mAssemblers.append(newAssembler);
         }
     }
@@ -72,9 +71,8 @@ void ProductionCalculator::jsonRead(const QJsonObject &json)
         QJsonObject object = json["items"].toObject();
         foreach (QString name, object.keys())
         {
-            QJsonObject item = object[name].toObject();
             FactorioItem newItem;
-            newItem.jsonRead(item);
+            newItem.jsonRead(object[name].toObject());
             mItems.append(newItem);
         }
     }
@@ -83,9 +81,8 @@ void ProductionCalculator::jsonRead(const QJsonObject &json)
         QJsonObject object = json["miners"].toObject();
         foreach (QString name, object.keys())
         {
-            QJsonObject miner = object[name].toObject();
             FactorioMiner newMiner;
-            newMiner.jsonRead(miner);
+            newMiner.jsonRead(object[name].toObject());
             mMiners.append(newMiner);
         }
     }
@@ -94,9 +91,8 @@ void ProductionCalculator::jsonRead(const QJsonObject &json)
         QJsonObject object = json["modules"].toObject();
         foreach (QString name, object.keys())
         {
-            QJsonObject module = object[name].toObject();
             FactorioModule newModule;
-            newModule.jsonRead(module);
+            newModule.jsonRead(object[name].toObject());
             mModules.append(newModule);
         }
     }
@@ -105,9 +101,8 @@ void ProductionCalculator::jsonRead(const QJsonObject &json)
         QJsonObject object = json["recipes"].toObject();
         foreach (QString name, object.keys())
         {
-            QJsonObject recipe = object[name].toObject();
             FactorioRecipe newRecipe;
-            newRecipe.jsonRead(recipe);
+            newRecipe.jsonRead(object[name].toObject());
             mRecipes.append(newRecipe);
         }
     }
@@ -116,9 +111,8 @@ void ProductionCalculator::jsonRead(const QJsonObject &json)
         QJsonObject object = json["resources"].toObject();
         foreach (QString name, object.keys())
         {
-            QJsonObject resource = object[name].toObject();
             FactorioResource newResource;
-            newResource.jsonRead(resource);
+            newResource.jsonRead(object[name].toObject());
             mResources.append(newResource);
         }
     }
