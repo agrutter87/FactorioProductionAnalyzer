@@ -16,10 +16,11 @@ class FactorioModule
 {
 public:
                                         FactorioModule();
-
-    void                                jsonRead(const QJsonObject &json);
+                                        FactorioModule(const QJsonObject &json);
 
 private:
+    void                                jsonRead(const QJsonObject &json);
+
     QString                             mCategory;
     QStringList                         mLimitations;
     double                              mModuleEffectConsumption;

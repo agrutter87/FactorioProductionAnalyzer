@@ -16,10 +16,11 @@ class FactorioRecipe
 {
 public:
                                         FactorioRecipe();
-
-    void                                jsonRead(const QJsonObject &json);
+                                        FactorioRecipe(const QJsonObject &json);
 
 private:
+    void                                jsonRead(const QJsonObject &json);
+
     QString                             mCategory;
     double                              mEnergy;
     QVector<FactorioProduct>            *mIngredients;

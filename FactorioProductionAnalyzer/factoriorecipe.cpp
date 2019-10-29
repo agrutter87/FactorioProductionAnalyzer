@@ -10,6 +10,19 @@ FactorioRecipe::FactorioRecipe()
 #if DEBUG_FACTORIO_RECIPE
     qDebug() << __PRETTY_FUNCTION__;
 #endif
+    mIngredients = new QVector<FactorioProduct>;
+    mProducts = new QVector<FactorioProduct>;
+}
+
+/*************************************************************************
+ * FactorioRecipe::FactorioRecipe
+ *************************************************************************/
+FactorioRecipe::FactorioRecipe(const QJsonObject &json)
+{
+#if DEBUG_FACTORIO_RECIPE
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
+    jsonRead(json);
 }
 
 /*************************************************************************

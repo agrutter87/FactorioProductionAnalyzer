@@ -16,10 +16,11 @@ class FactorioMiner
 {
 public:
                                         FactorioMiner();
-
-    void                                jsonRead(const QJsonObject &json);
+                                        FactorioMiner(const QJsonObject &json);
 
 private:
+    void                                jsonRead(const QJsonObject &json);
+
     bool                                mAllowedEffectConsumption;
     bool                                mAllowedEffectPollution;
     bool                                mAllowedEffectProductivity;

@@ -15,10 +15,11 @@ class FactorioProduct
 {
 public:
                                         FactorioProduct();
-
-    void                                jsonRead(const QJsonObject &json);
+                                        FactorioProduct(const QJsonObject &json);
 
 private:
+    void                                jsonRead(const QJsonObject &json);
+
     double                              mAmount;
     QString                             mName;
     QString                             mType;

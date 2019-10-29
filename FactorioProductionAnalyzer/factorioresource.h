@@ -16,10 +16,11 @@ class FactorioResource
 {
 public:
                                         FactorioResource();
-
-    void                                jsonRead(const QJsonObject &json);
+                                        FactorioResource(const QJsonObject &json);
 
 private:
+    void                                jsonRead(const QJsonObject &json);
+
     bool                                mInfinite;
     double                              mMinimum;
     double                              mMiningTime;

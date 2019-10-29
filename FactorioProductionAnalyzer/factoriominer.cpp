@@ -12,6 +12,17 @@ FactorioMiner::FactorioMiner()
 }
 
 /*************************************************************************
+ * FactorioMiner::FactorioMiner
+ *************************************************************************/
+FactorioMiner::FactorioMiner(const QJsonObject &json)
+{
+#if DEBUG_FACTORIO_MINER
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
+    jsonRead(json);
+}
+
+/*************************************************************************
  * FactorioMiner::jsonRead
  *************************************************************************/
 void FactorioMiner::jsonRead(const QJsonObject &json)

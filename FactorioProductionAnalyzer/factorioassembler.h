@@ -17,10 +17,11 @@ class FactorioAssembler
 {
 public:
                                         FactorioAssembler();
-
-    void                                jsonRead(const QJsonObject &json);
+                                        FactorioAssembler(const QJsonObject &json);
 
 private:
+    void                                jsonRead(const QJsonObject &json);
+
     bool                                mAllowedEffectConsumption;
     bool                                mAllowedEffectPollution;
     bool                                mAllowedEffectProductivity;

@@ -11,6 +11,17 @@ FactorioProduct::FactorioProduct()
 }
 
 /*************************************************************************
+ * FactorioProduct::FactorioProduct
+ *************************************************************************/
+FactorioProduct::FactorioProduct(const QJsonObject &json)
+{
+#if DEBUG_FACTORIO_PRODUCT
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
+    jsonRead(json);
+}
+
+/*************************************************************************
  * FactorioProduct::jsonRead
  *************************************************************************/
 void FactorioProduct::jsonRead(const QJsonObject &json)
@@ -33,7 +44,7 @@ void FactorioProduct::jsonRead(const QJsonObject &json)
     /* Read the type value if it exists */
     if (json.contains("type") && json["type"].isString())
     {
-        mName = json["type"].toString();
+        mType = json["type"].toString();
     }
 }
 

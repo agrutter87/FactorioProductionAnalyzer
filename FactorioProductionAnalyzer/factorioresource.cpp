@@ -10,6 +10,18 @@ FactorioResource::FactorioResource()
 #if DEBUG_FACTORIO_RESOURCE
     qDebug() << __PRETTY_FUNCTION__;
 #endif
+    mProducts = new QVector<FactorioProduct>;
+}
+
+/*************************************************************************
+ * FactorioResource::FactorioResource
+ *************************************************************************/
+FactorioResource::FactorioResource(const QJsonObject &json)
+{
+#if DEBUG_FACTORIO_RESOURCE
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
+    jsonRead(json);
 }
 
 /*************************************************************************
