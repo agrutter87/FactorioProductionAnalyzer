@@ -6,6 +6,7 @@
 #include <QDialog>
 
 #include "productionanalyzer.h"
+#include "productioncalculator.h"
 #include "productiongraph.h"
 
 /*************************************************************************
@@ -54,6 +55,7 @@ public:
 private slots:
     void                                on_actionOpen_triggered();
     void                                on_actionNewChart_triggered();
+    void                                on_actionCalculator_triggered();
 
     void                                periodicReadTimer_timeout();
     void                                newChartOkButton_released();
@@ -72,6 +74,7 @@ private slots:
 private:
     Ui::MainWindow                      *ui;
     ProductionAnalyzer                  mProductionAnalyzer;
+    ProductionCalculator                mProductionCalculator;
     QTimer                              *periodicReadTimer;
     QVector<ProductionGraph*>           mProductionGraphs;
 

@@ -253,6 +253,39 @@ void MainWindow::on_actionNewChart_triggered()
     delete mNewChartDialog;
 }
 
+/*************************************************************************
+ * MainWindow::on_actionCalculator_triggered
+ *************************************************************************/
+void MainWindow::on_actionCalculator_triggered()
+{
+#if DEBUG_MAIN_WINDOW
+    qDebug() << __PRETTY_FUNCTION__;
+#endif
+    /* Set the strings used in the getOpenFileName dialog */
+    QString fileDialogCaption = "Open File";
+#ifdef WIN32
+    QString fileDialogPath = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/AppData/Roaming/Factorio/script-output/export.json";
+#else
+    QString fileDialogPath = QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/.factorio/script-output/export.json";
+#endif
+    QString fileDialogFilter = "JSON (*.json)";
+    QString fileDialogFilterDefault = "JSON (*.json)";
+
+    /* Open the getOpenFileName dialog and wait for selection */
+    QString fileName = QFileDialog::getOpenFileName(this,
+                                                    fileDialogCaption,
+                                                    fileDialogPath,
+                                                    fileDialogFilter,
+                                                    &fileDialogFilterDefault);
+
+    /* If the filename is valid... */
+    if(!fileName.isEmpty())
+    {
+        /* Set the file information as a JSON file */
+        mProductionCalculator.setFile(fileName);
+        mProductionCalculator.fileRead();
+    }
+}
 
 /*************************************************************************
  * SLOT ACTIONS

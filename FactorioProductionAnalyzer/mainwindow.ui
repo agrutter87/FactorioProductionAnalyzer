@@ -36,6 +36,7 @@
      <string>New</string>
     </property>
     <addaction name="actionNewChart"/>
+    <addaction name="actionCalculator"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuNew"/>
@@ -53,6 +54,7 @@
    <addaction name="actionOpen"/>
    <addaction name="separator"/>
    <addaction name="actionNewChart"/>
+   <addaction name="actionCalculator"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionOpen">
@@ -83,6 +85,17 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+N</string>
+   </property>
+  </action>
+  <action name="actionCalculator">
+   <property name="text">
+    <string>Calculator</string>
+   </property>
+   <property name="toolTip">
+    <string>Calculate various things...</string>
+   </property>
+   <property name="shortcut">
+    <string>C</string>
    </property>
   </action>
  </widget>
