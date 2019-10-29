@@ -23,5 +23,17 @@ void FactorioItem::jsonRead(const QJsonObject &json)
     {
         mName = json["name"].toString();
     }
- }
+
+    /* Read the stack_size value if it exists */
+    if (json.contains("stack_size") && json["stack_size"].isString())
+    {
+        mStackSize = json["stack_size"].toDouble();
+    }
+
+    /* Read the type value if it exists */
+    if (json.contains("type") && json["type"].isString())
+    {
+        mType = json["type"].toString();
+    }
+}
 
